@@ -1,11 +1,22 @@
-import keydog from "src/assets/images/keydog.jpeg";
-import googleSocialLoginButton from "src/assets/images/googleLoginButton.jpeg";
+import GoogleLoginButton from "src/components/buttons/GoogleLoginButton";
+import UkeydockLogo from "@root/components/Logo/UkeydockLogo";
+import Keydog from "@root/components/Image/Keydog";
+import { imageClassName } from "@root/components/Types/enum/image";
+import { logoClassName } from "@root/components/Types/enum/keydog";
 
 export default function StartMain() {
   return (
-    <div>
-      <img src={keydog} alt="??"></img>
-      <img src={googleSocialLoginButton} alt="google"></img>
+    <div
+      style={{
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+      }}
+    >
+      <UkeydockLogo className={logoClassName.logo__big} />
+      <Keydog className={imageClassName.image__big} />
+      <GoogleLoginButton />
     </div>
   );
 }

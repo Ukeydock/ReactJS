@@ -15,11 +15,12 @@
     "isolatedModules": true,
     "baseUrl": "./",
     "paths": {
-      "@root/*": ["src/*"],
-      "@assets/*": ["src/assets/*"]
+      "@root/*": ["./src/*"]
     },
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/routers/index.tsx"]
+  "include": ["src", "src/routers/service.tsx"],
+  "include": ["src", "craco.config.js"],
+  "exclude": ["node_modules", "**/node_modules/*"]
 }

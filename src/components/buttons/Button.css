@@ -1,0 +1,8 @@
+.login__button {
+  display: flex;
+  justify-content: center;
+}
+
+.loginButton__image {
+  width: 250px;
+}
