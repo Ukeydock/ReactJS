@@ -1,0 +1,29 @@
+.button {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.button__border {
+  border: 1px solid;
+  border-radius: 20px;
+  padding: 6px 12px;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.button__text {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.selected .button__border {
+  border-color: #333;
+  background-color: #333;
+}
+
+.selected .button__text {
+  color: #fff;
+}

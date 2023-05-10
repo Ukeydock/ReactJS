@@ -10,11 +10,12 @@ export default function AuthCallback() {
   const appToken = searchParams.get("appToken");
   if (appToken) {
     localStorage.setItem(`appToken`, appToken);
+    window.location.href = "/start";
   }
   if (!appToken) {
     throw new CustomError("로그인에 실패하였습니다.", "/start", true);
   }
   // console.log(window.location.search.replace("?", "").split("="));
 
-  return <ErrorPage></ErrorPage>;
+  return <ErrorPage />;
 }
