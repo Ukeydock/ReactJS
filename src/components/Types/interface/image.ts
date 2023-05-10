@@ -1,4 +1,4 @@
-import { imageClassName } from "@root/components/image/Types/enum";
+import { imageClassName } from "../enum/image";
 
 export interface imageClassNameInterface {
   className: imageClassName;
