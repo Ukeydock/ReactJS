@@ -55,6 +55,10 @@ export default function Startpage() {
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
+        backgroundColor: "aqua",
+        display: "flex",
+        justifyContent: "space-around",
+        height: "80%",
       }}
     >
       <form>
@@ -71,9 +75,22 @@ export default function Startpage() {
           handleInputChange={handleInputChange}
           handleCanSubmit={handleCanSubmit}
         />
-        <button type="submit" disabled={checkCanSubmit()}>
-          제출
-        </button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            // backgroundColor: "red",
+          }}
+        >
+          <button
+            type="submit"
+            style={{ width: "100%" }}
+            disabled={checkCanSubmit()}
+          >
+            제출
+          </button>
+        </div>
       </form>
     </div>
   );

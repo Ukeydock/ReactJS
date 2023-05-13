@@ -8,7 +8,6 @@ export default function GoogleLoginButton() {
     <div className="login__button">
       <img
         onClick={() => {
-          console.log(process.env.REACT_APP_BACK_BASE_URL);
           execGoogleSocialLogin();
         }}
         className="loginButton__image"

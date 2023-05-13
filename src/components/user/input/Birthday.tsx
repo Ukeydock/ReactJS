@@ -70,7 +70,7 @@ export default function Birthday(props: props) {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
-    let formatted = input;
+    let formatted = input.replace(/[^0-9]/g, "");
     if (input.length >= 5) {
       if (input.length >= 8) {
         formatted = input
