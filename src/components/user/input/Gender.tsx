@@ -59,20 +59,20 @@ export default function Gender(props: props) {
         <Button
           name="남자"
           placeholder="남자"
-          isSelected={selectedButton === "남자"}
-          onSelect={() => handleSelectButton("남자")}
+          isSelected={selectedButton === "man"}
+          onSelect={() => handleSelectButton("man")}
         />
         <Button
           name="여자"
           placeholder="여자"
-          isSelected={selectedButton === "여자"}
-          onSelect={() => handleSelectButton("여자")}
+          isSelected={selectedButton === "women"}
+          onSelect={() => handleSelectButton("women")}
         />
         <Button
           name="선택안함"
           placeholder="선택안함"
-          isSelected={selectedButton === "선택안함"}
-          onSelect={() => handleSelectButton("선택안함")}
+          isSelected={selectedButton === "none"}
+          onSelect={() => handleSelectButton("none")}
         />
       </div>
     </div>

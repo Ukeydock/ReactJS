@@ -16,7 +16,7 @@ interface props {
 }
 
 export default function Nickname(props: props) {
-  const [nickname, setNickname] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("asdfasd");
   const [regNickname, setRegNickname] = useState<regNickname>({
     message: "닉네임을 입력해주세요!",
     textColor: textColor.red,
@@ -69,6 +69,7 @@ export default function Nickname(props: props) {
       <p className="input_box__name">Nickname </p>
       <input
         className="input_box__middle"
+        name="nickname"
         value={nickname}
         onChange={handleNicknameChange}
         type="text"

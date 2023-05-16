@@ -40,13 +40,14 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    // console.log(error);
     if (error instanceof CustomError) {
       if (error.isAlert) {
         alert(error.message);
       }
       window.location.href = error.path; // 에러 페이지로 이동
     }
-    console.error(error, errorInfo);
+
     // 예외 처리 로직
     this.setState({ hasError: true });
   }
@@ -54,7 +55,7 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       // window.location.href = "/";
-      return <h1>에러 발생!</h1>;
+      // return <h1>에러 발생!</h1>;
     }
     return this.props.children;
   }

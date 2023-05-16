@@ -6,20 +6,18 @@ export default function Footer() {
     <FooterContainer>
       <FooterContent>
         <FooterLinkContainer>
-          <FooterLinkTitle>넷플릭스 대한민국</FooterLinkTitle>
+          <FooterLinkTitle>Ukeydock</FooterLinkTitle>
           <FooterLinkContent>
             <FooterLink href="https://help.netflix.com/ko/node/412">
-              넷플릭스 소개
+              유키독 소개
             </FooterLink>
-            <FooterLink href="https://help.netflix.com/ko">
-              고객 센터
-            </FooterLink>
-            <FooterLink href="https://help.netflix.com/ko/">
+            <FooterLink href="https://help.netflix.com/ko">문의</FooterLink>
+            {/* <FooterLink href="https://help.netflix.com/ko/">
               미디어 센터
             </FooterLink>
             <FooterLink href="https://help.netflix.com/ko/">
               이용 약관
-            </FooterLink>
+            </FooterLink> */}
           </FooterLinkContent>
           <FooterDescContainer>
             <FooterDescRights>Netflix Rights Reserved.</FooterDescRights>
@@ -36,7 +34,7 @@ const FooterContainer = styled.div`
   align-items: center;
   padding: 40px 0;
   border-top: 1px solid rgb(25, 25, 25);
-  width: 100%;
+  /* width: 100%; */
   position: relative;
   z-index: 100;
 
@@ -89,7 +87,8 @@ const FooterLink = styled.a`
 `;
 
 const FooterDescContainer = styled.div`
-  margin-top: 30px @media (max-width: 768px) {
+  margin-top: 30px;
+  @media (max-width: 768px) {
     margin-top: 20px;
   }
 `;

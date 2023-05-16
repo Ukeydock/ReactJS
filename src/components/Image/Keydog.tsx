@@ -1,6 +1,6 @@
 import React from "react";
 import keydog from "src/assets/images/keydog.jpeg";
-import "@root/components/css/image.css";
+import "@root/css/image.css";
 import { imageClassNameInterface } from "../Types/interface/image";
 
 export default function Keydog(props: imageClassNameInterface) {

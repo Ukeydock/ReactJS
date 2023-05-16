@@ -16,7 +16,8 @@
     "baseUrl": "./",
     "paths": {
       "@root/*": ["./src/*"],
-      "@css/*": ["./src/components/css/*"]
+      "@css/*": ["./src/css/*"],
+      "@script/*": ["./src/components/scripts/*"]
     },
     "noEmit": true,
     "jsx": "react-jsx"

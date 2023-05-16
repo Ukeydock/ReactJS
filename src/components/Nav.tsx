@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./css/Nav.css";
+import "@css/Nav.css";
 import { useNavigate } from "react-router-dom";
+import logo from "@root/assets/images/UkeydockLogo.png";
+import UkeydockLogo from "./Logo/UkeydockLogo";
+import { logoClassName } from "./Types/enum/keydog";
 
 export default function Nav() {
   const [show, setShow] = useState(false);
@@ -23,17 +26,23 @@ export default function Nav() {
 
   function handleChange(e: any) {
     setSearchValue(e.target.value);
-    navigate(`/search?q=${e.target.value}`);
   }
+
+  const handleClikeLogo = () => {
+    navigate(`/api/main`);
+  };
 
   return (
     <nav className={`nav ${show && "nav_black"}`}>
       <img
-        alt="netfilx logo"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/170px-Netflix_2015_logo.svg.png"
+        src={logo}
+        onClick={() => {
+          handleClikeLogo();
+        }}
+        alt="Ukeydock"
         className="nav__logo"
-        onClick={() => window.location.reload()}
-      />
+      ></img>
+
       <input
         value={searchValue}
         onChange={handleChange}

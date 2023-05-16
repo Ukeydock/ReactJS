@@ -1,3 +1,5 @@
+import { CustomError } from "@root/components/error/CatchError";
+import { updateUser } from "@root/components/scripts/user";
 import Birthday from "@root/components/user/input/Birthday";
 import Gender from "@root/components/user/input/Gender";
 import Nickname from "@root/components/user/input/Nickname";
@@ -29,14 +31,29 @@ export default function Startpage() {
     gender: false,
   });
 
+  // input 박스 안의 내용이 바뀌면 함수가 실행됨.
   const handleInputChange = (e: { key: string; value: string }) => {
     const { key, value } = e;
     setFormData({ ...formData, [key]: value });
   };
 
+  // 제출 버튼을 조건에 따라 활성화 시키는 함수
   const handleCanSubmit = (e: { key: string; value: boolean }) => {
     const { key, value } = e;
     setCanSubmit({ ...canSubmit, [key]: value });
+  };
+
+  // 제출 버튼을 클릭했을 때.
+  const fetchUserDataSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+    try {
+      await updateUser(formData);
+      window.location.href = "/api/main";
+    } catch (err: any) {
+      throw new CustomError(err.message, "/start", true);
+    }
   };
 
   function checkCanSubmit(): boolean {
@@ -49,19 +66,20 @@ export default function Startpage() {
   }
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        backgroundColor: "aqua",
-        display: "flex",
-        justifyContent: "space-around",
-        height: "80%",
-      }}
-    >
-      <form>
+    <form onSubmit={fetchUserDataSubmit}>
+      <div
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          // backgroundColor: "aqua",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+          height: "70%",
+        }}
+      >
         <Nickname
           setValidFormButton={setValidFormButton}
           handleInputChange={handleInputChange}
@@ -78,20 +96,27 @@ export default function Startpage() {
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-end",
             width: "100%",
+            marginTop: "10%",
+
             // backgroundColor: "red",
           }}
         >
           <button
             type="submit"
-            style={{ width: "100%" }}
+            style={{
+              width: "20%",
+              display: "flex",
+              justifyContent: "flex-end",
+              marginRight: "10%",
+            }}
             disabled={checkCanSubmit()}
           >
             제출
           </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }

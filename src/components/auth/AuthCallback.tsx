@@ -15,13 +15,18 @@ const parseCookies = (cookiesString: string) => {
 
 export default function AuthCallback() {
   const cookie = document.cookie;
-  const appToken = parseCookies(cookie);
+  const cookieData = parseCookies(cookie);
 
-  if (appToken.accessToken) {
-    localStorage.setItem(`appToken`, appToken.accessToken);
-    window.location.href = "/start";
+  if (cookieData.accessToken) {
+    localStorage.setItem(`appToken`, cookieData.accessToken);
+    if (cookieData.existNickname === "true") {
+      window.location.href = "/api/main";
+    }
+    if (cookieData.existNickname === "false") {
+      window.location.href = "/start";
+    }
   }
-  if (!appToken.accessToken) {
+  if (!cookieData.accessToken) {
     throw new CustomError("로그인에 실패하였습니다.", "/start", true);
   }
   // console.log(window.location.search.replace("?", "").split("="));
