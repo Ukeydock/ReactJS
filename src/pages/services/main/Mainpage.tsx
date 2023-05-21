@@ -1,6 +1,6 @@
 import Banner from "@root/components/Banner";
 import Row from "@root/components/Row";
-import { findAll } from "@root/components/scripts/keyword";
+import { findAllByUserId } from "@root/components/scripts/keyword";
 import React, { useEffect, useState } from "react";
 
 interface keywordData {
@@ -16,9 +16,12 @@ export default function Mainpage() {
   }, []);
 
   const fetchRowData = async () => {
-    const keywordData: keywordData[] | [] = await findAll();
+    const keywordData: keywordData[] | [] = await findAllByUserId();
 
-    setRowData(keywordData);
+    setRowData([
+      { keyword: "카리나", keywordId: 1 },
+      { keyword: "T1", keywordId: 2 },
+    ]);
   };
   if (rowData) {
     return (

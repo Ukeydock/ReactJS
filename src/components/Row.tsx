@@ -41,7 +41,7 @@ export default function Row(props: propsData) {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // fetchMovie();
+    fetchMovie();
   }, []);
 
   const fetchMovie = async () => {

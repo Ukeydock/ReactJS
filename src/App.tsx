@@ -8,6 +8,7 @@ import AuthCallback from "./components/auth/AuthCallback";
 import ErrorBoundary from "./components/error/CatchError";
 import Startpage from "./pages/services/start/Start.page";
 import Mainpage from "./pages/services/main/Mainpage";
+import SearchPage from "./pages/services/main/SearchPage";
 
 const Layout = () => {
   return (
@@ -30,6 +31,9 @@ function App() {
             <Route path="start" element={<Startpage />} />
             <Route path="api" element={<Layout />}>
               <Route path="main" element={<Mainpage />} />
+            </Route>
+            <Route path="api" element={<Layout />}>
+              <Route path="search" element={<SearchPage />} />
             </Route>
 
             <Route path="/" element={<Navigate to="/auth" replace />} />

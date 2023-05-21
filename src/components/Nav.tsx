@@ -14,7 +14,7 @@ export default function Nav() {
     window.addEventListener("scroll", () => {
       // console.log("window.scrollY", window.scrollY);
 
-      if (window.scrollY > 50) {
+      if (window.scrollY > 60) {
         setShow(true);
       } else {
         setShow(false);
@@ -24,8 +24,10 @@ export default function Nav() {
     return () => {};
   });
 
-  function handleChange(e: any) {
+  async function handleChange(e: any) {
     setSearchValue(e.target.value);
+
+    navigate(`/api/search?keyword=${e.target.value}`);
   }
 
   const handleClikeLogo = () => {
@@ -50,6 +52,7 @@ export default function Nav() {
         type="text"
         placeholder="키워드를 입력해주세요"
       />
+
       <img
         alt="User logo"
         src="https://occ-0-4796-988.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABbme8JMz4rEKFJhtzpOKWFJ_6qX-0y5wwWyYvBhWS0VKFLa289dZ5zvRBggmFVWVPL2AAYE8xevD4jjLZjWumNo.png?r=a41"

@@ -1,42 +1,6 @@
 import React, { useState } from "react";
 import "@css/Button.css";
-
-interface Props {
-  name: string;
-  placeholder: string;
-  isSelected: boolean;
-  onSelect: () => void;
-}
-
-const Button: React.FC<Props> = ({
-  name,
-  placeholder,
-  isSelected,
-  onSelect,
-}) => {
-  const [isHover, setIsHover] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHover(false);
-  };
-
-  return (
-    <div
-      className={`button ${isSelected ? "selected" : ""}`}
-      onClick={onSelect}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div className="button__border">
-        <p className="button__text">{isSelected ? name : placeholder}</p>
-      </div>
-    </div>
-  );
-};
+import Button from "./Button/Button";
 
 interface props {
   handleInputChange: (e: { key: string; value: string }) => void;
@@ -47,6 +11,14 @@ export default function Gender(props: props) {
   const [selectedButton, setSelectedButton] = useState<string>("");
 
   const handleSelectButton = (name: string) => {
+    if (selectedButton === name) {
+      setSelectedButton("");
+
+      props.handleInputChange({ key: "gender", value: "" });
+      props.handleCanSubmit({ key: "gender", value: false });
+      return;
+    }
+
     setSelectedButton(name);
     props.handleInputChange({ key: "gender", value: name });
     props.handleCanSubmit({ key: "gender", value: true });
