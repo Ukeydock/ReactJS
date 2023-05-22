@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
-interface propsData {
+interface props {
   keyword: string;
 }
 
@@ -36,19 +36,20 @@ function truncateString(str: string): string {
   return str;
 }
 
-export default function Row(props: propsData) {
+export default function Row(props: props) {
   const [movies, setMovies] = useState<VideoData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
+  // 컴포넌트가 마운트되었을 때 최초 한 번 무조건 실행
+  // 의존성 배열 안의 값이 변했을 때
   useEffect(() => {
+    const fetchMovie = async () => {
+      const movieData = await findByKeyword(props.keyword);
+      setLoading(false);
+      setMovies(movieData);
+    };
     fetchMovie();
-  }, []);
-
-  const fetchMovie = async () => {
-    const movieData = await findByKeyword(props.keyword);
-    setLoading(false);
-    setMovies(movieData);
-  };
+  }, [props.keyword]);
 
   if (!loading && movies) {
     return (

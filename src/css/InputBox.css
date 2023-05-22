@@ -4,3 +4,13 @@
   font-size: 32px;
   text-align: center;
 }
+
+.keyword__list {
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-basis: 20%; */
+  flex: 1 1 50%;
+  row-gap: 50%;
+  /* height: 200px; */
+  justify-content: flex-start;
+}
