@@ -12,7 +12,13 @@ import SearchPage from "./pages/services/main/SearchPage";
 
 const Layout = () => {
   return (
-    <div style={{ maxWidth: "1600px" }}>
+    <div
+      style={{
+        maxWidth: "1600px",
+        backgroundColor: "black",
+        marginTop: "80px",
+      }}
+    >
       <Nav />
       <Outlet />
       <Footer />
@@ -22,7 +28,7 @@ const Layout = () => {
 
 function App() {
   return (
-    <div style={{ backgroundColor: "black" }}>
+    <div>
       <ErrorBoundary>
         <Routes>
           <Route path="/">

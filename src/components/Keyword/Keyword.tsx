@@ -11,7 +11,7 @@ interface props {
 
 export default function Keyword(props: props) {
   return (
-    <span className="input_box__name">
+    <span className="input_box__name" style={{ marginTop: "1rem" }}>
       <Button
         name={props.keyword}
         placeholder={props.keyword}

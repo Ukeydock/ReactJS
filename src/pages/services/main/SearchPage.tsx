@@ -54,7 +54,7 @@ export default function SearchPage() {
           justifyContent: "center",
         }}
       >
-        <span className="keyword__list">
+        <span className="keyword__list" style={{ marginTop: "20px" }}>
           {searchKeywordResults.map((searchKeywordData) => {
             return (
               <Keyword
