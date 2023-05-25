@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 interface keywordData {
   keyword: string;
   keywordId: number;
+  isExistUser: boolean;
 }
 
 export default function Mainpage() {
@@ -19,8 +20,8 @@ export default function Mainpage() {
     const keywordData: keywordData[] | [] = await findAllByUserId();
 
     setRowData([
-      { keyword: "카리나", keywordId: 1 },
-      { keyword: "T1", keywordId: 2 },
+      { keyword: "카리나", keywordId: 1, isExistUser: true },
+      { keyword: "T1", keywordId: 2, isExistUser: false },
     ]);
   };
   if (rowData) {
@@ -28,7 +29,7 @@ export default function Mainpage() {
       <div>
         <Banner />
         {rowData.map((keywordData, data) => (
-          <Row key={keywordData.keywordId} keyword={keywordData.keyword}></Row>
+          <Row {...keywordData}></Row>
         ))}
       </div>
     );

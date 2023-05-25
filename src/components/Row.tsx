@@ -10,8 +10,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import KeywordUser from "./scripts/keywordUser";
 
 interface props {
+  keywordId: number;
   keyword: string;
 }
 
@@ -39,7 +41,7 @@ function truncateString(str: string): string {
 export default function Row(props: props) {
   const [movies, setMovies] = useState<VideoData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
+  const [isExistUser, setIsExistUser] = useState<boolean>(false);
   // 컴포넌트가 마운트되었을 때 최초 한 번 무조건 실행
   // 의존성 배열 안의 값이 변했을 때
   useEffect(() => {
@@ -49,12 +51,29 @@ export default function Row(props: props) {
       setMovies(movieData);
     };
     fetchMovie();
+    fetchKeywordButton(props.keywordId);
   }, [props.keyword]);
+
+  const fetchKeywordButton = async (keywordId: number) => {
+    const keywordUserData = await KeywordUser.findOneByKeywordId(keywordId);
+    setIsExistUser(keywordUserData);
+  };
 
   if (!loading && movies) {
     return (
       <section className="row" style={{ backgroundColor: "black" }}>
-        <h2>{props.keyword} </h2>
+        <h2>
+          {props.keyword}
+
+          <button
+            onClick={() => {}}
+            className={`video__button ${
+              isExistUser == true ? "video__button__active" : ""
+            }`}
+          >
+            {isExistUser == true ? "등록한 키워드!" : "키워드 추가"}
+          </button>
+        </h2>
 
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y]}

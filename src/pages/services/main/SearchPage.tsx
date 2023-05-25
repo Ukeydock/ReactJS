@@ -7,13 +7,22 @@ import { useLocation } from "react-router-dom";
 interface KeywordResult {
   keyword: string;
   keywordId: number;
+  isExistUser: boolean;
+}
+
+interface SelectButton {
+  keyword: string;
+  keywordId: number;
 }
 
 export default function SearchPage() {
   const [searchKeywordResults, setSearchKeywordResults] = useState<
     KeywordResult[] | []
   >([]);
-  const [selectedButton, setSelectedButton] = useState<string>("");
+  const [selectedButton, setSelectedButton] = useState<SelectButton>({
+    keyword: "",
+    keywordId: 0,
+  });
 
   const useQuery = () => {
     return new URLSearchParams(useLocation().search);
@@ -26,24 +35,23 @@ export default function SearchPage() {
     const fetchSearchKeywordResult = async () => {
       if (searchTerm) {
         const keywordData = await findAll(searchTerm);
-
         setSearchKeywordResults(keywordData);
       }
       if (!searchTerm) {
         setSearchKeywordResults([]);
-        setSelectedButton("");
+        setSelectedButton({ keyword: "", keywordId: 0 });
       }
     };
     fetchSearchKeywordResult();
   }, [searchTerm]);
 
-  const handleSelectButton = (name: string) => {
-    if (selectedButton === name) {
-      setSelectedButton("");
+  const handleSelectButton = (keywordId: number, keyword: string) => {
+    if (selectedButton.keyword === keyword) {
+      setSelectedButton({ keyword: "", keywordId: 0 });
       return;
     }
 
-    setSelectedButton(name);
+    setSelectedButton({ keyword, keywordId });
   };
 
   if (searchKeywordResults?.length > 0) {
@@ -59,7 +67,7 @@ export default function SearchPage() {
             return (
               <Keyword
                 {...searchKeywordData}
-                selectedButton={selectedButton}
+                selectedButton={selectedButton.keyword}
                 handleSelectButton={handleSelectButton}
               />
             );
@@ -67,11 +75,11 @@ export default function SearchPage() {
         </span>
       </div>
     );
-    if (selectedButton) {
+    if (selectedButton.keyword) {
       return (
         <div>
           {keywordComponent}
-          <Row keyword={selectedButton} />
+          <Row {...selectedButton} />
         </div>
       );
     } else {
