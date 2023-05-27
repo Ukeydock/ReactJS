@@ -20,7 +20,7 @@ export default function Footer() {
             </FooterLink> */}
           </FooterLinkContent>
           <FooterDescContainer>
-            <FooterDescRights>Netflix Rights Reserved.</FooterDescRights>
+            <FooterDescRights>조권영 포트폴리오</FooterDescRights>
           </FooterDescContainer>
         </FooterLinkContainer>
       </FooterContent>

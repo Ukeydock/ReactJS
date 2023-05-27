@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "@css/Row.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper";
-import { findByKeyword } from "@root/components/scripts/video";
+import { Video } from "@root/components/scripts/video";
 import spinner from "@root/assets/images/Spinner-1s-200px.gif";
 
 import "swiper/css";
@@ -11,24 +11,12 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import KeywordUser from "./scripts/keywordUser";
+import VideoModal from "./videoModal/videoModal";
+import { VideoData } from "./Types/interface/video/videoData.interface";
 
 interface props {
   keywordId: number;
   keyword: string;
-}
-
-export interface VideoData {
-  videoId: string;
-  videoPublishedAt: string;
-  videoThumbnail: string;
-  videoUri: string;
-  videoTitle: string;
-  videoDescription: string;
-  videoChannelData: {
-    videoChannelTitle: string;
-    videoChannelDescription: string;
-    videoChannelThumbnail: string;
-  };
 }
 
 function truncateString(str: string): string {
@@ -41,12 +29,14 @@ function truncateString(str: string): string {
 export default function Row(props: props) {
   const [movies, setMovies] = useState<VideoData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [isExistUser, setIsExistUser] = useState<boolean>(false);
+  const [isExistKeyword, setIsExistKeyword] = useState<boolean>(false);
+  const [videoDbId, setVideoDbId] = useState<number | null>(null);
+
   // 컴포넌트가 마운트되었을 때 최초 한 번 무조건 실행
   // 의존성 배열 안의 값이 변했을 때
   useEffect(() => {
     const fetchMovie = async () => {
-      const movieData = await findByKeyword(props.keyword);
+      const movieData = await Video.findByKeyword(props.keyword);
       setLoading(false);
       setMovies(movieData);
     };
@@ -56,7 +46,11 @@ export default function Row(props: props) {
 
   const fetchKeywordButton = async (keywordId: number) => {
     const keywordUserData = await KeywordUser.findOneByKeywordId(keywordId);
-    setIsExistUser(keywordUserData);
+    setIsExistKeyword(keywordUserData);
+  };
+
+  const fetchVideoModal = async (videoDbId: number) => {
+    setVideoDbId(videoDbId);
   };
 
   if (!loading && movies) {
@@ -66,12 +60,20 @@ export default function Row(props: props) {
           {props.keyword}
 
           <button
-            onClick={() => {}}
+            onClick={() => {
+              if (isExistKeyword == true) {
+                KeywordUser.deleteByKeywordId(props.keywordId);
+                setIsExistKeyword(false);
+              } else {
+                KeywordUser.create(props.keywordId);
+                setIsExistKeyword(true);
+              }
+            }}
             className={`video__button ${
-              isExistUser == true ? "video__button__active" : ""
+              isExistKeyword == true ? "video__button__active" : ""
             }`}
           >
-            {isExistUser == true ? "등록한 키워드!" : "키워드 추가"}
+            {isExistKeyword == true ? "등록한 키워드!" : "키워드 추가"}
           </button>
         </h2>
 
@@ -108,15 +110,14 @@ export default function Row(props: props) {
                   className={`row__poster`}
                   src={video.videoThumbnail}
                   alt="영화들 이미지"
+                  onClick={() => fetchVideoModal(video.videoDBId)}
                 />
                 <p>{truncateString(video.videoTitle)}</p>
               </SwiperSlide>
             ))}
           </div>
         </Swiper>
-        {/* {modalOpen && movieSelected && (
-          // <MovieModal {...movieSelected} setModalOpen={setModalOpen} />
-        )} */}
+        {videoDbId && <VideoModal videoDbId={videoDbId} />}
       </section>
     );
   }

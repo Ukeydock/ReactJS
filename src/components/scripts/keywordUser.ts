@@ -7,8 +7,8 @@ class KeywordUser {
     return keywordUserData.data ? true : false;
   };
 
-  static craete = async (keywordId: number): Promise<void> => {
-    await axios.post(`/keyword-user`, { keywordId });
+  static create = async (keywordId: number): Promise<void> => {
+    await axios.post(`/keyword-user/${keywordId}`);
   };
 
   static deleteByKeywordId = async (keywordId: number): Promise<void> => {
