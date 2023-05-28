@@ -17,6 +17,10 @@
   height: 56.25%;
 }
 
+.video__title {
+  font-size: 1.5rem;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

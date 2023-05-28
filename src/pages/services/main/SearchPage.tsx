@@ -1,18 +1,15 @@
 import Keyword from "@root/components/Keyword/Keyword";
 import Row from "@root/components/Row";
+import { SelectButton } from "@root/components/Types/interface/keyword/SelectButton";
 import { findAll } from "@root/components/scripts/keyword";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import "@css/InputBox.css";
 
 interface KeywordResult {
   keyword: string;
   keywordId: number;
-  isExistUser: boolean;
-}
-
-interface SelectButton {
-  keyword: string;
-  keywordId: number;
+  isExistKeyword: boolean;
 }
 
 export default function SearchPage() {

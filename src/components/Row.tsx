@@ -105,7 +105,7 @@ export default function Row(props: props) {
             {movies?.map((video: VideoData) => (
               <SwiperSlide key={video.videoId}>
                 <img
-                  key={1}
+                  key={video.videoDBId}
                   style={{ padding: "25px 0" }}
                   className={`row__poster`}
                   src={video.videoThumbnail}
@@ -117,7 +117,9 @@ export default function Row(props: props) {
             ))}
           </div>
         </Swiper>
-        {videoDbId && <VideoModal videoDbId={videoDbId} />}
+        {videoDbId && (
+          <VideoModal videoDbId={videoDbId} keywordId={props.keywordId} />
+        )}
       </section>
     );
   }

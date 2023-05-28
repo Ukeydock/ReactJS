@@ -3,7 +3,7 @@ import axios from "@script/axios";
 interface keywordData {
   keyword: string;
   keywordId: number;
-  isExistUser: boolean;
+  isExistKeyword: boolean;
 }
 
 export const findAll = async (keyword: string): Promise<keywordData[] | []> => {

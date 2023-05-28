@@ -11,6 +11,10 @@
   transition: all 0.3s ease-in-out;
 }
 
+.exist__keyword {
+  color: #0b905b;
+}
+
 .button__text {
   font-size: 14px;
   font-weight: bold;

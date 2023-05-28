@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import "@css/Button.css";
 
 interface Props {
   name: string;
   placeholder: string;
   isSelected: boolean;
+  isExistKeyword?: boolean;
   onSelect: () => void;
 }
 
@@ -19,7 +21,13 @@ export default function Button(props: Props) {
 
   return (
     <div
-      className={`button ${props.isSelected ? "selected" : ""}`}
+      className={`button ${
+        props.isSelected
+          ? "selected"
+          : props.isExistKeyword == true
+          ? "exist__keyword"
+          : ""
+      } ${isHover ? "hover" : ""}`}
       onClick={props.onSelect}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

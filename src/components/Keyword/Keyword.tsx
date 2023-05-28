@@ -5,7 +5,7 @@ import Button from "../user/input/Button/Button";
 interface props {
   keywordId: number;
   keyword: string;
-  isExistUser: boolean;
+  isExistKeyword?: boolean;
   selectedButton: string;
   handleSelectButton: (keywordId: number, keyword: string) => void;
 }
@@ -16,6 +16,7 @@ export default function Keyword(props: props) {
       <Button
         name={props.keyword}
         placeholder={props.keyword}
+        isExistKeyword={props.isExistKeyword}
         isSelected={props.selectedButton === props.keyword}
         onSelect={() =>
           props.handleSelectButton(props.keywordId, props.keyword)

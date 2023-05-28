@@ -1,5 +1,5 @@
 import { CustomError } from "@root/components/error/CatchError";
-import { updateUser } from "@root/components/scripts/user";
+import { User } from "@root/components/scripts/user";
 import Birthday from "@root/components/user/input/Birthday";
 import Gender from "@root/components/user/input/Gender";
 import Nickname from "@root/components/user/input/Nickname";
@@ -49,7 +49,7 @@ export default function Startpage() {
   ) => {
     event.preventDefault();
     try {
-      await updateUser(formData);
+      await User.updateUser(formData);
       window.location.href = "/api/main";
     } catch (err: any) {
       throw new CustomError(err.message, "/start", true);

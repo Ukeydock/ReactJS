@@ -14,12 +14,20 @@ interface payload {
   gender: string;
 }
 
-export const updateUser = async (form: updateUserForm) => {
-  const payload: payload = {
-    nickname: form.nickname,
-    birthday: new Date(form.birthday),
-    gender: form.gender,
+export class User {
+  static updateUser = async (form: updateUserForm) => {
+    const payload: payload = {
+      nickname: form.nickname,
+      birthday: new Date(form.birthday),
+      gender: form.gender,
+    };
+
+    await axios.put("/user", payload);
   };
 
-  await axios.put("/user", payload);
-};
+  static findUserSubscribedKeywordList = async (keywordId: number) => {
+    const userData = await axios.get(`/user/keyword/${keywordId}`);
+
+    return userData.data.data.userListData;
+  };
+}
