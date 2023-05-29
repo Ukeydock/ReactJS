@@ -1,6 +1,6 @@
 import axios from "@script/axios";
 
-class KeywordUser {
+export class KeywordUserApi {
   static findOneByKeywordId = async (keywordId: number): Promise<boolean> => {
     const keywordUserData = await axios.get(`/keyword-user/@${keywordId}`);
 
@@ -15,5 +15,3 @@ class KeywordUser {
     await axios.delete(`/keyword-user/@${keywordId}`);
   };
 }
-
-export default KeywordUser;

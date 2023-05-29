@@ -5,7 +5,7 @@
   min-width: 400px;
   /* padding: 20px 0px; */
   top: 0;
-  z-index: 100;
+  z-index: 1;
   transition-timing-function: ease-in;
   transition: all 0.5s;
   background-color: white;

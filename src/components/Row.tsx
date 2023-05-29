@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import "@css/Row.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper";
-import { Video } from "@root/components/scripts/video";
+import { VideoApi } from "@root/components/scripts/video";
 import spinner from "@root/assets/images/Spinner-1s-200px.gif";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import KeywordUser from "./scripts/keywordUser";
+import { KeywordUserApi } from "./scripts/keywordUser";
 import VideoModal from "./videoModal/videoModal";
 import { VideoData } from "./Types/interface/video/videoData.interface";
 
@@ -36,7 +36,7 @@ export default function Row(props: props) {
   // 의존성 배열 안의 값이 변했을 때
   useEffect(() => {
     const fetchMovie = async () => {
-      const movieData = await Video.findByKeyword(props.keyword);
+      const movieData = await VideoApi.findByKeyword(props.keyword);
       setLoading(false);
       setMovies(movieData);
     };
@@ -45,12 +45,16 @@ export default function Row(props: props) {
   }, [props.keyword]);
 
   const fetchKeywordButton = async (keywordId: number) => {
-    const keywordUserData = await KeywordUser.findOneByKeywordId(keywordId);
+    const keywordUserData = await KeywordUserApi.findOneByKeywordId(keywordId);
     setIsExistKeyword(keywordUserData);
   };
 
   const fetchVideoModal = async (videoDbId: number) => {
     setVideoDbId(videoDbId);
+  };
+
+  const handleVideoDbId = () => {
+    setVideoDbId(null);
   };
 
   if (!loading && movies) {
@@ -62,10 +66,10 @@ export default function Row(props: props) {
           <button
             onClick={() => {
               if (isExistKeyword == true) {
-                KeywordUser.deleteByKeywordId(props.keywordId);
+                KeywordUserApi.deleteByKeywordId(props.keywordId);
                 setIsExistKeyword(false);
               } else {
-                KeywordUser.create(props.keywordId);
+                KeywordUserApi.create(props.keywordId);
                 setIsExistKeyword(true);
               }
             }}
@@ -118,7 +122,11 @@ export default function Row(props: props) {
           </div>
         </Swiper>
         {videoDbId && (
-          <VideoModal videoDbId={videoDbId} keywordId={props.keywordId} />
+          <VideoModal
+            videoDbId={videoDbId}
+            keywordId={props.keywordId}
+            handleVideoDbId={handleVideoDbId}
+          />
         )}
       </section>
     );

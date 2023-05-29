@@ -1,10 +1,9 @@
 import Keyword from "@root/components/Keyword/Keyword";
 import Row from "@root/components/Row";
 import { SelectButton } from "@root/components/Types/interface/keyword/SelectButton";
-import { findAll } from "@root/components/scripts/keyword";
+import { KeywordApi } from "@root/components/scripts/keyword";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import "@css/InputBox.css";
 
 interface KeywordResult {
   keyword: string;
@@ -31,7 +30,7 @@ export default function SearchPage() {
   useEffect(() => {
     const fetchSearchKeywordResult = async () => {
       if (searchTerm) {
-        const keywordData = await findAll(searchTerm);
+        const keywordData = await KeywordApi.findAll(searchTerm);
         setSearchKeywordResults(keywordData);
       }
       if (!searchTerm) {

@@ -14,7 +14,7 @@ interface payload {
   gender: string;
 }
 
-export class User {
+export class UserApi {
   static updateUser = async (form: updateUserForm) => {
     const payload: payload = {
       nickname: form.nickname,

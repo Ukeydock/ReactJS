@@ -1,49 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserListData } from "../Types/interface/user/user";
 import "@css/user/User.css";
 import Keyword from "../Keyword/Keyword";
 import { SelectButton } from "../Types/interface/keyword/SelectButton";
+import { keywordData } from "../Types/interface/keyword/keywordData.interface";
+import { KeywordApi } from "../scripts/keyword";
 
 interface Props {
   userData: UserListData;
 }
-
-const testKeywordData = [
-  {
-    keywordId: 1,
-    keyword: "test",
-  },
-  {
-    keywordId: 2,
-    keyword: "testKeyword2",
-  },
-  {
-    keywordId: 3,
-    keyword: "testKeyword3",
-  },
-  {
-    keywordId: 4,
-    keyword: "testKeyword4",
-  },
-  {
-    keywordId: 5,
-    keyword: "testKeyword5",
-  },
-  {
-    keywordId: 6,
-    keyword: "testKeyword6",
-  },
-  {
-    keywordId: 7,
-    keyword: "testKeyword7",
-  },
-];
 
 export default function UserProfile(props: Props) {
   const [selectedButton, setSelectedButton] = useState<SelectButton>({
     keyword: "",
     keywordId: 0,
   });
+
+  const [keyword, setKeyword] = useState<keywordData[]>([]);
+
+  useEffect(() => {
+    const fetchKeyword = async () => {
+      const keywordData = await KeywordApi.findAllByUserId(
+        props.userData.userId
+      );
+      setKeyword(keywordData);
+    };
+
+    fetchKeyword();
+  }, []);
 
   const handleSelectButton = (keywordId: number, keyword: string) => {
     if (selectedButton.keyword === keyword) {
@@ -71,21 +55,25 @@ export default function UserProfile(props: Props) {
         />
         <p>{props.userData.userNickname}</p>
       </div>
-      <div style={{ display: "flex", flexFlow: "wrap" }}>
+      <div>
         <p> {props.userData.userGender}</p>
+        <br />
         <p> {props.userData.userAge}</p>
+        <br />
         <p> {props.userData.userJob}</p>
       </div>
       <div
         style={{
           display: "flex",
           gap: "10px",
-          flexFlow: "wrap",
+          flexDirection: "column",
+
+          flexFlow: "nowrap",
           marginLeft: "10px",
           color: "black",
         }}
       >
-        {testKeywordData.map((keyword) => (
+        {keyword.map((keyword) => (
           <Keyword
             {...keyword}
             selectedButton={selectedButton.keyword}

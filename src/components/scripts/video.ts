@@ -1,6 +1,6 @@
 import axios from "@script/axios";
 
-export class Video {
+export class VideoApi {
   static findByKeyword = async (keyword: string) => {
     const videoData = await axios.get(`/video/${keyword}?platform=youtube`);
     return videoData.data.videoData;

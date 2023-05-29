@@ -1,7 +1,7 @@
 import Banner from "@root/components/Banner";
 import Row from "@root/components/Row";
 import { keywordData } from "@root/components/Types/interface/keyword/keywordData.interface";
-import { findAllByUserId } from "@root/components/scripts/keyword";
+import { KeywordApi } from "@root/components/scripts/keyword";
 import React, { useEffect, useState } from "react";
 
 export default function Mainpage() {
@@ -12,7 +12,7 @@ export default function Mainpage() {
   }, []);
 
   const fetchRowData = async () => {
-    const keywordData: keywordData[] | [] = await findAllByUserId();
+    const keywordData: keywordData[] | [] = await KeywordApi.findAllByUserId();
 
     setRowData(keywordData);
   };

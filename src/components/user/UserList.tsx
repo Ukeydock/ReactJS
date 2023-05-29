@@ -7,6 +7,7 @@ interface Props {
 }
 
 export default function UserList(props: Props) {
+  console.log(props);
   return (
     <div style={{ color: "white" }}>
       {props.userData.map((user) => (
