@@ -1,5 +1,6 @@
 .video__modal {
   width: 90%;
+  max-width: 1600px;
   height: 90%;
   background-color: black;
   position: fixed;

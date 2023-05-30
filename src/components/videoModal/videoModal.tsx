@@ -5,35 +5,42 @@ import { videoDetailData } from "../Types/interface/video/videoData.interface";
 import { UserApi } from "../scripts/user";
 import UserList from "../user/UserList";
 import { UserListData } from "../Types/interface/user/user";
+import Row from "../Row";
+import { keywordData } from "../Types/interface/keyword/keywordData.interface";
 
 interface Props {
   videoDbId: number;
-  keywordId: number;
+  keywordData: keywordData;
   handleVideoDbId: () => void;
 }
 
 export default function VideoModal(props: Props) {
+  const [videoDbId, setVideoDbId] = useState(props.videoDbId);
   const [videoDetailData, setVideoDetailData] = useState<videoDetailData>();
   const [subscribeKeywordUser, setSubscribeKeywordUser] = useState<
     UserListData[]
   >([]);
+  const [keywordInModal, setKeywordInModal] = useState<keywordData>(
+    props.keywordData
+  );
 
   useEffect(() => {
     const fetchDetailData = async () => {
-      const videoDetailData = await VideoApi.findDetailByVideoDbId(
-        props.videoDbId
-      );
+      const videoDetailData = await VideoApi.findDetailByVideoDbId(videoDbId);
       setVideoDetailData(videoDetailData);
     };
 
+    fetchDetailData();
+  }, [videoDbId]);
+
+  useEffect(() => {
     const fetchKeywordSubscribeUserData = async () => {
       const keywordSubscribeUserData =
-        await UserApi.findUserSubscribedKeywordList(props.keywordId);
+        await UserApi.findUserSubscribedKeywordList(keywordInModal.keywordId);
       setSubscribeKeywordUser(keywordSubscribeUserData);
     };
-    fetchDetailData();
     fetchKeywordSubscribeUserData();
-  }, [props.videoDbId]);
+  }, [keywordInModal]);
 
   const closeVideoModal = () => {
     props.handleVideoDbId();
@@ -61,8 +68,13 @@ export default function VideoModal(props: Props) {
           <p className="video__title">{videoDetailData.videoTitle}</p>
           <p>{videoDetailData.videoDescription}</p>
 
+          <Row keywordData={keywordInModal} setVideoDbId={setVideoDbId} />
+
           {subscribeKeywordUser.length >= 1 && (
-            <UserList userData={subscribeKeywordUser} />
+            <UserList
+              userData={subscribeKeywordUser}
+              setKeywordInModal={setKeywordInModal}
+            />
           )}
         </div>
       </div>

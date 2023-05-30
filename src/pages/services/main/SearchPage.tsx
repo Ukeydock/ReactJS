@@ -1,23 +1,19 @@
 import Keyword from "@root/components/Keyword/Keyword";
 import Row from "@root/components/Row";
 import { SelectButton } from "@root/components/Types/interface/keyword/SelectButton";
+import { keywordData } from "@root/components/Types/interface/keyword/keywordData.interface";
 import { KeywordApi } from "@root/components/scripts/keyword";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-interface KeywordResult {
-  keyword: string;
-  keywordId: number;
-  isExistKeyword: boolean;
-}
-
 export default function SearchPage() {
   const [searchKeywordResults, setSearchKeywordResults] = useState<
-    KeywordResult[] | []
+    keywordData[] | []
   >([]);
-  const [selectedButton, setSelectedButton] = useState<SelectButton>({
+  const [selectedButton, setSelectedButton] = useState<keywordData>({
     keyword: "",
     keywordId: 0,
+    isExistKeyword: false,
   });
 
   const useQuery = () => {
@@ -35,7 +31,7 @@ export default function SearchPage() {
       }
       if (!searchTerm) {
         setSearchKeywordResults([]);
-        setSelectedButton({ keyword: "", keywordId: 0 });
+        setSelectedButton({ keyword: "", keywordId: 0, isExistKeyword: false });
       }
     };
     fetchSearchKeywordResult();
@@ -43,11 +39,11 @@ export default function SearchPage() {
 
   const handleSelectButton = (keywordId: number, keyword: string) => {
     if (selectedButton.keyword === keyword) {
-      setSelectedButton({ keyword: "", keywordId: 0 });
+      setSelectedButton({ keyword: "", keywordId: 0, isExistKeyword: false });
       return;
     }
 
-    setSelectedButton({ keyword, keywordId });
+    setSelectedButton({ keyword, keywordId, isExistKeyword: false });
   };
 
   if (searchKeywordResults?.length > 0) {
@@ -75,7 +71,7 @@ export default function SearchPage() {
       return (
         <div>
           {keywordComponent}
-          <Row {...selectedButton} />
+          <Row keywordData={selectedButton} />
         </div>
       );
     } else {

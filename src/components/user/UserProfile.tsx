@@ -8,14 +8,11 @@ import { KeywordApi } from "../scripts/keyword";
 
 interface Props {
   userData: UserListData;
+  selectedButton: SelectButton;
+  setSelectedButton: React.Dispatch<React.SetStateAction<SelectButton>>;
 }
 
 export default function UserProfile(props: Props) {
-  const [selectedButton, setSelectedButton] = useState<SelectButton>({
-    keyword: "",
-    keywordId: 0,
-  });
-
   const [keyword, setKeyword] = useState<keywordData[]>([]);
 
   useEffect(() => {
@@ -30,18 +27,18 @@ export default function UserProfile(props: Props) {
   }, []);
 
   const handleSelectButton = (keywordId: number, keyword: string) => {
-    if (selectedButton.keyword === keyword) {
-      setSelectedButton({ keyword: "", keywordId: 0 });
+    if (props.selectedButton.keyword === keyword) {
+      props.setSelectedButton({ keyword: "", keywordId: 0 });
       return;
     }
 
-    setSelectedButton({ keyword, keywordId });
+    props.setSelectedButton({ keyword, keywordId });
   };
-
   return (
     <div
       style={{
-        width: "50%",
+        flexBasis: "50%",
+
         display: "flex",
         backgroundColor: "#222222",
         border: "2px solid #333333",
@@ -66,7 +63,7 @@ export default function UserProfile(props: Props) {
         style={{
           display: "flex",
           gap: "10px",
-          flexDirection: "column",
+          // flexDirection: "column",
 
           flexFlow: "nowrap",
           marginLeft: "10px",
@@ -75,8 +72,9 @@ export default function UserProfile(props: Props) {
       >
         {keyword.map((keyword) => (
           <Keyword
+            key={keyword.keywordId}
             {...keyword}
-            selectedButton={selectedButton.keyword}
+            selectedButton={props.selectedButton.keyword}
             handleSelectButton={handleSelectButton}
           />
         ))}

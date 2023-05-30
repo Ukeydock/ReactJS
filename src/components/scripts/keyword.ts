@@ -1,10 +1,5 @@
 import axios from "@script/axios";
-
-interface keywordData {
-  keyword: string;
-  keywordId: number;
-  isExistKeyword: boolean;
-}
+import { keywordData } from "../Types/interface/keyword/keywordData.interface";
 
 export class KeywordApi {
   static findAll = async (keyword: string): Promise<keywordData[] | []> => {

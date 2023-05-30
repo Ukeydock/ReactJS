@@ -8,7 +8,6 @@ export class VideoApi {
 
   static findDetailByVideoDbId = async (videoDbId: number) => {
     const videoDetailData = await axios.get(`/video/@${videoDbId}`);
-    console.log(videoDetailData);
     return videoDetailData.data;
   };
 }

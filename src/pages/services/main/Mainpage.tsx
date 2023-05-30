@@ -21,7 +21,7 @@ export default function Mainpage() {
       <div>
         <Banner />
         {rowData.map((keywordData, data) => (
-          <Row {...keywordData} key={keywordData.keywordId}></Row>
+          <Row keywordData={keywordData} key={keywordData.keywordId}></Row>
         ))}
       </div>
     );
