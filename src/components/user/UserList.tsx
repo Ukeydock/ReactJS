@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { UserListData } from "../Types/interface/user/user";
 import UserProfile from "./UserProfile";
 import { SelectButton } from "../Types/interface/keyword/SelectButton";
-import { keywordData } from "../Types/interface/keyword/keywordData.interface";
+import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
 
 interface Props {
   userData: UserListData[];
-  setKeywordInModal: (keywordData: keywordData) => void;
+  setKeywordInModal: (keywordData: KeywordData) => void;
 }
 
 export default function UserList(props: Props) {

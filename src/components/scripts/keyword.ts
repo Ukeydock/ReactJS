@@ -1,8 +1,8 @@
 import axios from "@script/axios";
-import { keywordData } from "../Types/interface/keyword/keywordData.interface";
+import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
 
 export class KeywordApi {
-  static findAll = async (keyword: string): Promise<keywordData[] | []> => {
+  static findAll = async (keyword: string): Promise<KeywordData[] | []> => {
     const keywordData = await axios.get(`/keyword/search?keyword=${keyword}`);
     return keywordData.data;
   };

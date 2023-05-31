@@ -3,7 +3,7 @@ import { UserListData } from "../Types/interface/user/user";
 import "@css/user/User.css";
 import Keyword from "../Keyword/Keyword";
 import { SelectButton } from "../Types/interface/keyword/SelectButton";
-import { keywordData } from "../Types/interface/keyword/keywordData.interface";
+import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
 import { KeywordApi } from "../scripts/keyword";
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function UserProfile(props: Props) {
-  const [keyword, setKeyword] = useState<keywordData[]>([]);
+  const [keyword, setKeyword] = useState<KeywordData[]>([]);
 
   useEffect(() => {
     const fetchKeyword = async () => {

@@ -1,8 +1,9 @@
 .banner {
   color: white;
+  background-color: #222;
   object-fit: contain;
   width: 100%;
-  /* height: 448px; */
+  height: 448px;
 }
 @media (min-width: 1500px) {
   .banner {
@@ -104,4 +105,31 @@
 
 .space {
   margin-left: 4px;
+}
+
+.popular__keyword_list {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10%;
+}
+
+.popular__keyword_list > div {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.keyword__banner {
+  height: 100px;
+  display: flex;
+
+  /* background-color: "red"; */
+}
+@media (max-width: 768px) {
+  .keyword__banner_item {
+    font-size: 1.5rem;
+  }
+}
+.keyword__banner_item {
+  font-size: 2rem;
+  display: flex;
 }

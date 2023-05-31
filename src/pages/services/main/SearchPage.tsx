@@ -1,16 +1,16 @@
 import Keyword from "@root/components/Keyword/Keyword";
 import Row from "@root/components/Row";
 import { SelectButton } from "@root/components/Types/interface/keyword/SelectButton";
-import { keywordData } from "@root/components/Types/interface/keyword/keywordData.interface";
+import { KeywordData } from "@root/components/Types/interface/keyword/keywordData.interface";
 import { KeywordApi } from "@root/components/scripts/keyword";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export default function SearchPage() {
   const [searchKeywordResults, setSearchKeywordResults] = useState<
-    keywordData[] | []
+    KeywordData[] | []
   >([]);
-  const [selectedButton, setSelectedButton] = useState<keywordData>({
+  const [selectedButton, setSelectedButton] = useState<KeywordData>({
     keyword: "",
     keywordId: 0,
     isExistKeyword: false,

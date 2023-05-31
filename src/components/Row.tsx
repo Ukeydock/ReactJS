@@ -13,10 +13,10 @@ import "swiper/css/scrollbar";
 import { KeywordUserApi } from "./scripts/keywordUser";
 import VideoModal from "./videoModal/videoModal";
 import { VideoData } from "./Types/interface/video/videoData.interface";
-import { keywordData } from "./Types/interface/keyword/keywordData.interface";
+import { KeywordData } from "./Types/interface/keyword/keywordData.interface";
 
 interface props {
-  keywordData: keywordData;
+  keywordData: KeywordData;
   setVideoDbId?: any;
 }
 

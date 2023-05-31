@@ -6,11 +6,11 @@ import { UserApi } from "../scripts/user";
 import UserList from "../user/UserList";
 import { UserListData } from "../Types/interface/user/user";
 import Row from "../Row";
-import { keywordData } from "../Types/interface/keyword/keywordData.interface";
+import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
 
 interface Props {
   videoDbId: number;
-  keywordData: keywordData;
+  keywordData: KeywordData;
   handleVideoDbId: () => void;
 }
 
@@ -20,7 +20,7 @@ export default function VideoModal(props: Props) {
   const [subscribeKeywordUser, setSubscribeKeywordUser] = useState<
     UserListData[]
   >([]);
-  const [keywordInModal, setKeywordInModal] = useState<keywordData>(
+  const [keywordInModal, setKeywordInModal] = useState<KeywordData>(
     props.keywordData
   );
 

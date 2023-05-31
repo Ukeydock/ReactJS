@@ -1,18 +1,18 @@
-import Banner from "@root/components/Banner";
+import Banner from "@root/components/Banner/Banner";
 import Row from "@root/components/Row";
-import { keywordData } from "@root/components/Types/interface/keyword/keywordData.interface";
+import { KeywordData } from "@root/components/Types/interface/keyword/keywordData.interface";
 import { KeywordApi } from "@root/components/scripts/keyword";
 import React, { useEffect, useState } from "react";
 
 export default function Mainpage() {
-  const [rowData, setRowData] = useState<keywordData[]>([]);
+  const [rowData, setRowData] = useState<KeywordData[]>([]);
 
   useEffect(() => {
     fetchRowData();
   }, []);
 
   const fetchRowData = async () => {
-    const keywordData: keywordData[] | [] = await KeywordApi.findAllByUserId();
+    const keywordData: KeywordData[] | [] = await KeywordApi.findAllByUserId();
 
     setRowData(keywordData);
   };
