@@ -3,46 +3,57 @@ import axios from "@script/axios";
 import "@css/Banner.css";
 import styled from "styled-components";
 import KeywordBanner from "./KeywordBanner";
-
-const testKeywordData = [
-  {
-    keywordId: 1,
-    keyword: "키워드1",
-    isExistKeyword: false,
-  },
-  {
-    keywordId: 2,
-    keyword: "키워드2",
-    isExistKeyword: false,
-  },
-  {
-    keywordId: 3,
-    keyword: "키워드3",
-    isExistKeyword: false,
-  },
-  {
-    keywordId: 4,
-    keyword: "키워드4",
-    isExistKeyword: false,
-  },
-];
+import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
+import { KeywordApi } from "../scripts/keyword";
 
 export default function Banner() {
   const [movie, setMovie] = useState<boolean>(true);
   const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [recentKeyword, setRecentKeyword] = useState<KeywordData[]>([]);
+  const [popularKeyword, setPopularKeyword] = useState<KeywordData[]>([]);
+
+  useEffect(() => {
+    const fetchRecentKeyword = async () => {
+      const recentKeywordData = await KeywordApi.findRecomendKeyword(
+        "recent",
+        10
+      );
+      setRecentKeyword(recentKeywordData);
+    };
+
+    const fetchPopularKeyword = async () => {
+      const popularKeywordData = await KeywordApi.findRecomendKeyword(
+        "popular",
+        10
+      );
+      setPopularKeyword(popularKeywordData);
+    };
+
+    fetchRecentKeyword();
+    fetchPopularKeyword();
+  }, []);
 
   if (!isClicked && movie) {
     return (
       <header className="banner">
         <div style={{ height: "230px" }}></div>
         <div className="popular__keyword_list">
-          <KeywordBanner keywordData={testKeywordData} />
+          <KeywordBanner
+            keywordLabel="최근 추가된 키워드에요!"
+            keywordData={recentKeyword}
+          />
 
           <div>
-            <KeywordBanner keywordData={testKeywordData} />
+            <KeywordBanner
+              keywordLabel="유키독의 인기 키워드에요!"
+              keywordData={popularKeyword}
+            />
           </div>
           <div>
-            <KeywordBanner keywordData={testKeywordData} />
+            <KeywordBanner
+              keywordLabel="키독님을 위한 추천 키워드에요!"
+              keywordData={[]}
+            />
           </div>
         </div>
 

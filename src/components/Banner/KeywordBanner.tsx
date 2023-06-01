@@ -3,13 +3,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
 
 interface Props {
+  keywordLabel: string;
   keywordData: KeywordData[];
 }
 export default function KeywordBanner(props: Props) {
   const swiperRef = useRef<any>(null);
-  const [keywordData, setKeywordData] = useState<KeywordData[]>(
-    props.keywordData
-  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,10 +21,10 @@ export default function KeywordBanner(props: Props) {
     };
   }, []);
 
-  if (keywordData.length > 0) {
+  if (props.keywordData.length > 0) {
     return (
       <div>
-        <label>나나</label>
+        <label>{props.keywordLabel}</label>
         <Swiper
           className="keyword__banner"
           direction="vertical"
@@ -34,14 +32,23 @@ export default function KeywordBanner(props: Props) {
           loop={true}
           autoplay={true}
         >
-          {keywordData.map((keyword) => (
+          {props.keywordData.map((keyword, idx) => (
             <SwiperSlide
               className="keyword__banner_item"
               key={keyword.keywordId}
             >
-              <span style={{ alignItems: "center", display: "flex" }}>
+              <div
+                style={{
+                  alignItems: "center",
+                  display: "flex",
+                }}
+                onClick={() => {
+                  window.location.href = `/api/search?keyword=${keyword.keyword}`;
+                }}
+              >
+                {idx + 1 + ". "}
                 {keyword.keyword}
-              </span>
+              </div>
             </SwiperSlide>
           ))}
 

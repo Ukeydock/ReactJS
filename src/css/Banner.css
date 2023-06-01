@@ -132,4 +132,5 @@
 .keyword__banner_item {
   font-size: 2rem;
   display: flex;
+  justify-content: center;
 }

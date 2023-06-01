@@ -1,31 +1,53 @@
 import React, { useEffect, useState } from "react";
 import "@css/Nav.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "@root/assets/images/UkeydockLogo.png";
 import UkeydockLogo from "./Logo/UkeydockLogo";
 import { logoClassName } from "./Types/enum/keydog";
+import { UserListData } from "./Types/interface/user/user";
+import { UserApi } from "./scripts/user";
+import Keydog from "./Image/Keydog";
+import { imageClassName } from "./Types/enum/image";
 
 export default function Nav() {
+  const location = useLocation();
   const [show, setShow] = useState(false);
-  const [searchValue, setSearchValue] = useState<string>("");
+  const [searchKeyword, setKeywordValue] = useState<string>("");
+  const [userData, setUserData] = useState<UserListData>();
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      // console.log("window.scrollY", window.scrollY);
+    const fetchNavColorByScroll = async () => {
+      window.addEventListener("scroll", () => {
+        // console.log("window.scrollY", window.scrollY);
 
-      if (window.scrollY > 60) {
-        setShow(true);
-      } else {
-        setShow(false);
-      }
-    });
+        if (window.scrollY > 60) {
+          setShow(true);
+        } else {
+          setShow(false);
+        }
+      });
+    };
+    const fetchUserData = async () => {
+      const userData = await UserApi.findOneByUserId();
+      console.log(userData);
+      setUserData(userData);
+    };
 
-    return () => {};
-  });
+    const fetchSearchKeywordResult = async () => {
+      const queryParams = new URLSearchParams(location.search);
+      const keyword = queryParams.get("keyword");
+      setKeywordValue(keyword ?? "");
+    };
+
+    fetchNavColorByScroll();
+    fetchUserData();
+    fetchSearchKeywordResult();
+  }, []);
 
   async function handleChange(e: any) {
-    setSearchValue(e.target.value);
+    setKeywordValue(e.target.value);
 
     navigate(`/api/search?keyword=${e.target.value}`);
   }
@@ -47,18 +69,21 @@ export default function Nav() {
         ></img>
 
         <input
-          value={searchValue}
+          value={searchKeyword}
           onChange={handleChange}
           className="nav__input"
           type="text"
           placeholder="키워드를 입력해주세요"
         />
 
-        <img
-          alt="User logo"
-          src="https://occ-0-4796-988.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABbme8JMz4rEKFJhtzpOKWFJ_6qX-0y5wwWyYvBhWS0VKFLa289dZ5zvRBggmFVWVPL2AAYE8xevD4jjLZjWumNo.png?r=a41"
-          className="nav__avatar"
-        />
+        {userData && (
+          <img
+            alt="User logo"
+            src={userData.userProfileImage}
+            className="nav__avatar"
+          />
+        )}
+        {!userData && <Keydog className={imageClassName.image__big} />}
       </div>
     </nav>
   );

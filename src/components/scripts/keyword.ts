@@ -12,4 +12,14 @@ export class KeywordApi {
     const keywordData = await axios.get(`/keyword/@${userId ?? 0}`);
     return keywordData.data;
   };
+
+  static findRecomendKeyword = async (
+    recomendType: "recent" | "popular" | "recommend",
+    limit?: number
+  ) => {
+    const keywordData = await axios.get(
+      `/keyword/recommend?recomendType=${recomendType}&limit=${limit ?? 10}`
+    );
+    return keywordData.data;
+  };
 }
