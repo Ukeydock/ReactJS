@@ -15,6 +15,25 @@ interface payload {
 }
 
 export class UserApi {
+
+
+
+
+ static findUser = async () => {
+
+    const localStorageUser = localStorage.getItem('user')
+    if (localStorageUser) {
+       const userData =  JSON.parse(localStorageUser)
+       return userData
+    } else {
+        const userData = await UserApi.findOneByUserId()
+        localStorage.setItem('user', JSON.stringify(userData));
+
+        return userData
+    }
+}
+
+
   /**
    *
    * @param userId 유저 아이디

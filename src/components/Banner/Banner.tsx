@@ -5,8 +5,14 @@ import styled from "styled-components";
 import KeywordBanner from "./KeywordBanner";
 import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
 import { KeywordApi } from "../scripts/keyword";
+import UserStatus from "./UserStatus";
 
-export default function Banner() {
+interface Props {
+  subscribeKeywordCount: number;
+}
+
+
+export default function Banner(props: Props) {
   const [movie, setMovie] = useState<boolean>(true);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [recentKeyword, setRecentKeyword] = useState<KeywordData[]>([]);
@@ -36,7 +42,7 @@ export default function Banner() {
   if (!isClicked && movie) {
     return (
       <header className="banner">
-        <div style={{ height: "230px" }}></div>
+        <UserStatus subscribeKeywordCount={props.subscribeKeywordCount} />
         <div className="popular__keyword_list">
           <KeywordBanner
             keywordLabel="최근 추가된 키워드에요!"
@@ -72,7 +78,7 @@ export default function Banner() {
             title="YouTube video player"
             // frameborder="0"
             allow=" autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            // allowfullscreen
+          // allowfullscreen
           ></Iframe>
         </HomeContainer>
       </Container>

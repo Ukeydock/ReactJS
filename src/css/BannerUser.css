@@ -1,0 +1,16 @@
+.banner__user {
+    height: 230px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner__user__info {
+    display: flex;
+
+    width: 80%;
+    height: 80%;
+
+
+    border: 2px solid white;
+}

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import "@css/Nav.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "@root/assets/images/UkeydockLogo.png";
-import UkeydockLogo from "./Logo/UkeydockLogo";
-import { logoClassName } from "./Types/enum/keydog";
+
 import { UserListData } from "./Types/interface/user/user";
 import { UserApi } from "./scripts/user";
 import Keydog from "./Image/Keydog";
@@ -16,7 +15,7 @@ export default function Nav() {
   const [userData, setUserData] = useState<UserListData>();
 
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const fetchNavColorByScroll = async () => {
       window.addEventListener("scroll", () => {
@@ -30,9 +29,9 @@ export default function Nav() {
       });
     };
     const fetchUserData = async () => {
-      const userData = await UserApi.findOneByUserId();
-      console.log(userData);
-      setUserData(userData);
+      const loginUserData = await UserApi.findUser()
+      console.log(loginUserData)
+      setUserData(loginUserData);
     };
 
     const fetchSearchKeywordResult = async () => {
@@ -76,14 +75,21 @@ export default function Nav() {
           placeholder="키워드를 입력해주세요"
         />
 
-        {userData && (
+        {userData?.userProfileImage ? (
           <img
             alt="User logo"
             src={userData.userProfileImage}
             className="nav__avatar"
+
           />
+        ) : (
+          <img
+            alt="Err"
+            src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbP2PbB_Seuw0wrFxWqjZmr7erq1ncL2N6Q&usqp=CAU"}
+            className="nav__avatar" />
         )}
-        {!userData && <Keydog className={imageClassName.image__big} />}
+        
+       
       </div>
     </nav>
   );

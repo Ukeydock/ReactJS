@@ -7,19 +7,25 @@ import React, { useEffect, useState } from "react";
 export default function Mainpage() {
   const [rowData, setRowData] = useState<KeywordData[]>([]);
 
+
+
   useEffect(() => {
+    const fetchRowData = async () => {
+      const keywordData: KeywordData[] | [] = await KeywordApi.findAllByUserId();
+  
+      setRowData(keywordData);
+    };
+
+    
+
     fetchRowData();
   }, []);
 
-  const fetchRowData = async () => {
-    const keywordData: KeywordData[] | [] = await KeywordApi.findAllByUserId();
-
-    setRowData(keywordData);
-  };
+ 
   if (rowData) {
     return (
       <div>
-        <Banner />
+        <Banner subscribeKeywordCount={rowData.length} />
         {rowData.map((keywordData, data) => (
           <Row keywordData={keywordData} key={keywordData.keywordId}></Row>
         ))}

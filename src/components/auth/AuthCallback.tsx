@@ -1,5 +1,3 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
 import { CustomError } from "../error/CatchError";
 import ErrorPage from "@root/pages/services/error.page";
 
