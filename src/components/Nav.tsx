@@ -15,11 +15,10 @@ export default function Nav() {
   const [userData, setUserData] = useState<UserListData>();
 
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const fetchNavColorByScroll = async () => {
       window.addEventListener("scroll", () => {
-        // console.log("window.scrollY", window.scrollY);
 
         if (window.scrollY > 60) {
           setShow(true);
@@ -30,7 +29,7 @@ export default function Nav() {
     };
     const fetchUserData = async () => {
       const loginUserData = await UserApi.findUser()
-      console.log(loginUserData)
+      console.log("nav")
       setUserData(loginUserData);
     };
 
@@ -46,6 +45,9 @@ export default function Nav() {
   }, []);
 
   async function handleChange(e: any) {
+    if (e.target.value === "") {
+      window.location.href = "/api/main";
+    }
     setKeywordValue(e.target.value);
 
     navigate(`/api/search?keyword=${e.target.value}`);
@@ -88,11 +90,11 @@ export default function Nav() {
             src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbP2PbB_Seuw0wrFxWqjZmr7erq1ncL2N6Q&usqp=CAU"}
             className="nav__avatar" />
         )}
-        
-       
+
+
       </div>
     </nav>
   );
 }
 
-export {};
+export { };

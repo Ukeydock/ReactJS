@@ -63,6 +63,7 @@
     border: none;
   }
 }
+
 @media screen and (max-width: 768px) {
   .nav__logo {
     left: 20px;
@@ -92,6 +93,7 @@
     border: none;
   }
 }
+
 /* 
 .nav__logo {
   position: fixed;

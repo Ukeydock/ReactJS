@@ -1,7 +1,7 @@
 export interface UserListData {
   userId: number;
   userNickname: string;
-  userGender: string;
+  userGender: `man` | `woman` | `none`;
   userJob: string;
   userCreatedAt: Date;
   userUpdatedAt: Date;

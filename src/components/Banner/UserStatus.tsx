@@ -4,6 +4,9 @@ import "@css/BannerUser.css"
 interface Props {
     // 구독한 키워드의 수
     subscribeKeywordCount: number;
+    nickname: string;
+    age: string;
+    gender: `man` | `woman` | `none`;
 }
 
 /**
@@ -17,8 +20,31 @@ export default function UserStatus(props: Props) {
 
     return (
         <div className='banner__user'>
-            <div className='banner__user__info'>
-                안녕하세요
+            <div className='banner__user__info__box'>
+                <div className='banner__user__info'>
+
+                    <div className='banner__user__profile'>
+
+                        <img
+                            src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbP2PbB_Seuw0wrFxWqjZmr7erq1ncL2N6Q&usqp=CAU'
+                            className='banner__user__profile__img'
+                        />
+
+                    </div>
+                    <div className='banner__user__status__box'>
+                        <div style={{ textAlign: "center" }}>{props.nickname} </div>
+                        <div style={{ display: "flex", flex: "0 0 100%", flexDirection: 'row' }}>
+                            <div className='banner__user__status'>
+                                <div className='banner__user_status__info'><p>안녕</p></div>
+                                <div className='banner__user_status__info'><p>하이</p></div>
+                            </div>
+                            <div className='banner__user__status' >
+                                <div className='banner__user_status__info'><p>안녕</p></div>
+                                <div className='banner__user_status__info'><p>하이</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

@@ -6,6 +6,8 @@ import KeywordBanner from "./KeywordBanner";
 import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
 import { KeywordApi } from "../scripts/keyword";
 import UserStatus from "./UserStatus";
+import { UserListData } from "../Types/interface/user/user";
+import { UserApi } from "../scripts/user";
 
 interface Props {
   subscribeKeywordCount: number;
@@ -13,11 +15,10 @@ interface Props {
 
 
 export default function Banner(props: Props) {
-  const [movie, setMovie] = useState<boolean>(true);
-  const [isClicked, setIsClicked] = useState<boolean>(false);
+
   const [recentKeyword, setRecentKeyword] = useState<KeywordData[]>([]);
   const [popularKeyword, setPopularKeyword] = useState<KeywordData[]>([]);
-
+  const [user, setUser] = useState<UserListData>()
   useEffect(() => {
     const fetchRecentKeyword = async () => {
       const recentKeywordData = await KeywordApi.findRecomendKeyword(
@@ -35,14 +36,28 @@ export default function Banner(props: Props) {
       setPopularKeyword(popularKeywordData);
     };
 
+    const fetchUserData = async () => {
+      const userData = await UserApi.findUser();
+      console.log("ban")
+      setUser(userData);
+    };
+
+    fetchUserData()
     fetchRecentKeyword();
     fetchPopularKeyword();
   }, []);
 
-  if (!isClicked && movie) {
+
+  if (user) {
+    console.log(user)
     return (
       <header className="banner">
-        <UserStatus subscribeKeywordCount={props.subscribeKeywordCount} />
+        <UserStatus
+          nickname={user.userNickname}
+          age={user.userAge}
+          gender={user.userGender}
+
+          subscribeKeywordCount={props.subscribeKeywordCount} />
         <div className="popular__keyword_list">
           <KeywordBanner
             keywordLabel="최근 추가된 키워드에요!"
@@ -67,25 +82,10 @@ export default function Banner(props: Props) {
         <div className="banner--fadeBottom" />
       </header>
     );
-  } else if (isClicked && movie) {
-    return (
-      <Container>
-        <HomeContainer>
-          <Iframe
-            width="640"
-            height="360"
-            src="https://www.youtube.com/embed/9voN0gkdlS4"
-            title="YouTube video player"
-            // frameborder="0"
-            allow=" autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          // allowfullscreen
-          ></Iframe>
-        </HomeContainer>
-      </Container>
-    );
   } else {
-    return <div></div>;
+    return <div></div>
   }
+
 }
 
 const Iframe = styled.iframe`
