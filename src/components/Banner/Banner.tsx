@@ -18,6 +18,8 @@ export default function Banner(props: Props) {
 
   const [recentKeyword, setRecentKeyword] = useState<KeywordData[]>([]);
   const [popularKeyword, setPopularKeyword] = useState<KeywordData[]>([]);
+  const [recommendKeyword, setRecommendKeyword] = useState<KeywordData[]>([])
+
   const [user, setUser] = useState<UserListData>()
   useEffect(() => {
     const fetchRecentKeyword = async () => {
@@ -36,23 +38,31 @@ export default function Banner(props: Props) {
       setPopularKeyword(popularKeywordData);
     };
 
+    const fetchRecommendKeyword = async () => {
+      const recommendKeywordData = await KeywordApi.findRecomendKeyword(
+        "recommend",
+        10
+      );
+      setRecommendKeyword(recommendKeywordData);
+    };
+
     const fetchUserData = async () => {
       const userData = await UserApi.findUser();
-      console.log("ban")
       setUser(userData);
     };
 
     fetchUserData()
     fetchRecentKeyword();
     fetchPopularKeyword();
+    fetchRecommendKeyword()
   }, []);
 
 
   if (user) {
-    console.log(user)
     return (
       <header className="banner">
         <UserStatus
+          userProfileImg={user.userProfileImage}
           nickname={user.userNickname}
           age={user.userAge}
           gender={user.userGender}
@@ -72,8 +82,8 @@ export default function Banner(props: Props) {
           </div>
           <div>
             <KeywordBanner
-              keywordLabel="키독님을 위한 추천 키워드에요!"
-              keywordData={[]}
+              keywordLabel={user.userNickname + "님을 위한 추천 키워드에요!"}
+              keywordData={popularKeyword}
             />
           </div>
         </div>

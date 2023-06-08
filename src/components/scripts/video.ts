@@ -10,4 +10,15 @@ export class VideoApi {
     const videoDetailData = await axios.get(`/video/@${videoDbId}`);
     return videoDetailData.data;
   };
+
+
+}
+
+export class VideoViewApi {
+  static create = async (videoDbId: number) => {
+
+    const videoViewData = await axios.post(`/view/@${videoDbId}`);
+    console.log(videoViewData)
+    return videoViewData.data;
+  }
 }

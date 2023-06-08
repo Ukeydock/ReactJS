@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "@css/Row.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper";
-import { VideoApi } from "@root/components/scripts/video";
+import { VideoApi, VideoViewApi } from "@root/components/scripts/video";
 import spinner from "@root/assets/images/Spinner-1s-200px.gif";
 
 import "swiper/css";
@@ -77,9 +77,8 @@ export default function Row(props: props) {
                 setIsExistKeyword(true);
               }
             }}
-            className={`video__button ${
-              isExistKeyword == true ? "video__button__active" : ""
-            }`}
+            className={`video__button ${isExistKeyword == true ? "video__button__active" : ""
+              }`}
           >
             {isExistKeyword == true ? "등록한 키워드!" : "키워드 추가"}
           </button>
@@ -118,7 +117,8 @@ export default function Row(props: props) {
                   className={`row__poster`}
                   src={video.videoThumbnail}
                   alt="영화들 이미지"
-                  onClick={() => {
+                  onClick={async () => {
+                    await VideoViewApi.create(video.videoDBId)
                     if (props.setVideoDbId) {
                       props.setVideoDbId(video.videoDBId);
                     } else {
@@ -147,4 +147,4 @@ export default function Row(props: props) {
   return <div></div>;
 }
 
-export {};
+export { };

@@ -58,12 +58,13 @@ export default function VideoModal(props: Props) {
           <p>X</p>
         </div>
 
-        <div className="video__modal">
+        <div className="video__modal" >
           <iframe
             className="video_iframe"
             src={"https://www.youtube.com/embed/" + videoDetailData.videoId}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+
           ></iframe>
           <p className="video__title">{videoDetailData.videoTitle}</p>
           <p>{videoDetailData.videoDescription}</p>
