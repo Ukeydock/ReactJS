@@ -82,13 +82,16 @@ export default function Nav() {
             alt="User logo"
             src={userData.userProfileImage}
             className="nav__avatar"
-
+            onClick={() => window.location.href = "/api/user"}
           />
         ) : (
           <img
             alt="Err"
             src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbP2PbB_Seuw0wrFxWqjZmr7erq1ncL2N6Q&usqp=CAU"}
-            className="nav__avatar" />
+            className="nav__avatar"
+
+            onClick={() => window.location.href = "/api/user"}
+          />
         )}
 
 

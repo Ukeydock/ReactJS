@@ -79,4 +79,8 @@ export class UserApi {
 
     await axios.put("/user", payload);
   };
+
+  static updateUserProfile = async (formData: FormData) => {
+    await axios.post("/user/profile", formData);
+  }
 }

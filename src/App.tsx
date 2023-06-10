@@ -9,7 +9,7 @@ import ErrorBoundary from "./components/error/CatchError";
 import Startpage from "./pages/services/start/Start.page";
 import Mainpage from "./pages/services/main/Mainpage";
 import SearchPage from "./pages/services/main/SearchPage";
-import Userpage from "./pages/services/main/Userpage";
+import UserPage from "./pages/services/main/Userpage";
 
 const Layout = () => {
   return (
@@ -43,7 +43,7 @@ function App() {
               <Route path="search" element={<SearchPage />} />
             </Route>
             <Route path="api" element={<Layout />}>
-              <Route path="user" element={<Userpage />} />
+              <Route path="user" element={<UserPage />} />
             </Route>
 
             <Route path="/" element={<Navigate to="/auth" replace />} />

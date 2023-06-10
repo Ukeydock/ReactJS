@@ -27,8 +27,14 @@
     justify-content: center;
 }
 
+.hover_mouse {
+    cursor: pointer;
+
+}
+
 .banner__user__profile {
     flex: 0 1 147px;
+
 }
 
 .banner__user__profile__img {

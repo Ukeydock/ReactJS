@@ -62,6 +62,8 @@ export default function Banner(props: Props) {
     return (
       <header className="banner">
         <UserStatus
+
+          userId={user.userId}
           userProfileImg={user.userProfileImage}
           nickname={user.userNickname}
           age={user.userAge}
