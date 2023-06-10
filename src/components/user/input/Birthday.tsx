@@ -35,6 +35,7 @@ interface birthdayMessage {
 }
 
 interface props {
+  birthday?: string;
   handleInputChange: (e: { key: string; value: string }) => void;
   handleCanSubmit: (e: { key: string; value: boolean }) => void;
 }
@@ -42,14 +43,17 @@ interface props {
 const defaultBirthdayMessage = "생일을 입력해주세요.";
 
 export default function Birthday(props: props) {
-  const [birthday, setBirthday] = useState("");
+  const [birthday, setBirthday] = useState(props.birthday ? props.birthday : "");
   const [birthdayMessage, setBirthdayMessage] = useState<birthdayMessage>({
     message: defaultBirthdayMessage,
     color: textColor.red,
   });
 
+
+
   useEffect(() => {
     if (birthday.length >= 10) {
+
       props.handleInputChange({ key: "birthday", value: birthday });
       props.handleCanSubmit({ key: "birthday", value: true });
 

@@ -21,20 +21,19 @@ export default function Button(props: Props) {
 
   return (
     <div
-      className={`button ${
-        props.isSelected
+      className={`button ${props.isSelected
           ? "selected"
           : props.isExistKeyword == true
-          ? "exist__keyword"
-          : ""
-      } ${isHover ? "hover" : ""}`}
+            ? "exist__keyword"
+            : ""
+        } ${isHover ? "hover" : ""}`}
       onClick={props.onSelect}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="button__border">
         <p className="button__text">
-          {props.isSelected ? props.name : props.placeholder}
+          {props.placeholder}
         </p>
       </div>
     </div>

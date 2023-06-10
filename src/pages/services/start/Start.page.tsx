@@ -17,20 +17,26 @@ interface formData {
   gender: string;
 }
 
-export default function Startpage() {
+interface Props {
+  nickname?: string
+  birthday?: string
+  gender?: string
+}
+
+export default function Startpage(props: Props) {
   const [validFormButton, setValidFormButton] = useState<boolean>(false);
   const [formData, setFormData] = useState<formData>({
-    nickname: "",
-    birthday: "",
-    gender: "",
+    nickname: props.nickname || "",
+    birthday: props.birthday || "",
+    gender: props.gender || "",
   });
-
   const [canSubmit, setCanSubmit] = useState<canSubmit>({
-    nickname: false,
-    birthday: false,
-    gender: false,
+    nickname: props.nickname ? true : false,
+    birthday: props.birthday ? true : false,
+    gender: props.gender ? true : false,
   });
 
+  console.log(canSubmit)
   // input 박스 안의 내용이 바뀌면 함수가 실행됨.
   const handleInputChange = (e: { key: string; value: string }) => {
     const { key, value } = e;
@@ -81,15 +87,19 @@ export default function Startpage() {
         }}
       >
         <Nickname
+          nickname={formData.nickname}
           setValidFormButton={setValidFormButton}
           handleInputChange={handleInputChange}
           handleCanSubmit={handleCanSubmit}
         />
         <Birthday
+          birthday={formData.birthday}
           handleInputChange={handleInputChange}
           handleCanSubmit={handleCanSubmit}
         />
         <Gender
+
+          gender={formData.gender}
           handleInputChange={handleInputChange}
           handleCanSubmit={handleCanSubmit}
         />
@@ -104,13 +114,14 @@ export default function Startpage() {
           }}
         >
           <button
+            className=" button__border"
             type="submit"
-            style={{
-              width: "20%",
-              display: "flex",
-              justifyContent: "flex-end",
-              marginRight: "10%",
-            }}
+            // style={{
+            //   width: "20%",
+            //   display: "flex",
+            //   justifyContent: "flex-end",
+            //   marginRight: "10%",
+            // }}
             disabled={checkCanSubmit()}
           >
             제출

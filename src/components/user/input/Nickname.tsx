@@ -10,22 +10,26 @@ interface regNickname {
 }
 
 interface props {
+  nickname?: string
   setValidFormButton: (value: boolean) => void;
   handleInputChange: (e: { key: string; value: string }) => void;
   handleCanSubmit: (e: { key: string; value: boolean }) => void;
 }
 
 export default function Nickname(props: props) {
-  const [nickname, setNickname] = useState<string>("asdfasd");
+  const [nickname, setNickname] = useState<string>(props.nickname ? props.nickname : "");
   const [regNickname, setRegNickname] = useState<regNickname>({
     message: "닉네임을 입력해주세요!",
     textColor: textColor.red,
   });
 
-  const debounceTerm = useDebounce(nickname, 1000);
+  const debounceTerm = useDebounce(nickname, 500);
+
+
 
   useEffect(() => {
-    fetchNicknameValid(debounceTerm);
+    fetchNicknameValid(nickname);
+
   }, [debounceTerm]);
 
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +37,7 @@ export default function Nickname(props: props) {
   };
 
   function fetchNicknameValid(nickname: string) {
+
     if (nickname.length <= 0) {
       props.setValidFormButton(false);
       setRegNickname({
