@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "@css/video/Modal.css";
-import { VideoApi } from "../scripts/video";
-import { videoDetailData } from "../Types/interface/video/videoData.interface";
-import { UserApi } from "../scripts/user";
-import UserList from "../user/UserList";
-import { UserListData } from "../Types/interface/user/user";
+import { VideoApi } from "../../scripts/video";
+import { videoDetailData } from "../../Types/interface/video/videoData.interface";
+import { UserApi } from "../../scripts/user";
+import UserList from "../User/UserList";
+import { UserListData } from "../../Types/interface/user/user";
 import Row from "../Row";
-import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
+import { KeywordData } from "../../Types/interface/keyword/keywordData.interface";
 
 interface Props {
   videoDbId: number;
@@ -58,13 +58,12 @@ export default function VideoModal(props: Props) {
           <p>X</p>
         </div>
 
-        <div className="video__modal" >
+        <div className="video__modal">
           <iframe
             className="video_iframe"
             src={"https://www.youtube.com/embed/" + videoDetailData.videoId}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-
           ></iframe>
           <p className="video__title">{videoDetailData.videoTitle}</p>
           <p>{videoDetailData.videoDescription}</p>

@@ -1,19 +1,19 @@
-import axios from "@script/axios";
+import axios from "@root/scripts/axios";
 import React, { useEffect, useState } from "react";
 import "@css/Row.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper";
-import { VideoApi, VideoViewApi } from "@root/components/scripts/video";
+import { VideoApi, VideoViewApi } from "@root/scripts/video";
 import spinner from "@root/assets/images/Spinner-1s-200px.gif";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { KeywordUserApi } from "./scripts/keywordUser";
+import { KeywordUserApi } from "../scripts/keywordUser";
 import VideoModal from "./videoModal/videoModal";
-import { VideoData } from "./Types/interface/video/videoData.interface";
-import { KeywordData } from "./Types/interface/keyword/keywordData.interface";
+import { VideoData } from "../Types/interface/video/videoData.interface";
+import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
 
 interface props {
   keywordData: KeywordData;
@@ -77,8 +77,9 @@ export default function Row(props: props) {
                 setIsExistKeyword(true);
               }
             }}
-            className={`video__button ${isExistKeyword == true ? "video__button__active" : ""
-              }`}
+            className={`video__button ${
+              isExistKeyword == true ? "video__button__active" : ""
+            }`}
           >
             {isExistKeyword == true ? "등록한 키워드!" : "키워드 추가"}
           </button>
@@ -118,7 +119,7 @@ export default function Row(props: props) {
                   src={video.videoThumbnail}
                   alt="영화들 이미지"
                   onClick={async () => {
-                    await VideoViewApi.create(video.videoDBId)
+                    await VideoViewApi.create(video.videoDBId);
                     if (props.setVideoDbId) {
                       props.setVideoDbId(video.videoDBId);
                     } else {
@@ -147,4 +148,4 @@ export default function Row(props: props) {
   return <div></div>;
 }
 
-export { };
+export {};

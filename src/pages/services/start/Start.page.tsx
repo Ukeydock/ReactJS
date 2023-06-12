@@ -1,9 +1,10 @@
+import { UserGender } from "@root/Types/interface/user/user";
 import { CustomError } from "@root/components/error/CatchError";
-import { UserApi } from "@root/components/scripts/user";
-import Birthday from "@root/components/user/input/Birthday";
-import Gender from "@root/components/user/input/Gender";
-import Nickname from "@root/components/user/input/Nickname";
-import React, { useState } from "react";
+import { UserApi } from "@root/scripts/user";
+import Birthday from "@root/components/User/input/Birthday";
+import Gender from "@root/components/User/input/Gender";
+import Nickname from "@root/components/User/input/Nickname";
+import React, { useEffect, useState } from "react";
 
 interface canSubmit {
   nickname: boolean;
@@ -14,13 +15,14 @@ interface canSubmit {
 interface formData {
   nickname: string;
   birthday: string;
-  gender: string;
+  gender: UserGender;
 }
 
 interface Props {
-  nickname?: string
-  birthday?: string
-  gender?: string
+  fetchUser?: (nickname: string, age: string, gender: UserGender) => void;
+  nickname?: string;
+  birthday?: string;
+  gender?: UserGender;
 }
 
 export default function Startpage(props: Props) {
@@ -36,7 +38,6 @@ export default function Startpage(props: Props) {
     gender: props.gender ? true : false,
   });
 
-  console.log(canSubmit)
   // input 박스 안의 내용이 바뀌면 함수가 실행됨.
   const handleInputChange = (e: { key: string; value: string }) => {
     const { key, value } = e;
@@ -49,6 +50,20 @@ export default function Startpage(props: Props) {
     setCanSubmit({ ...canSubmit, [key]: value });
   };
 
+  const checkCanSubmit = () => {
+    for (const value of Object.values(canSubmit)) {
+      if (!value) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    console.log(checkCanSubmit());
+    setValidFormButton(checkCanSubmit());
+  }, [canSubmit]);
+
   // 제출 버튼을 클릭했을 때.
   const fetchUserDataSubmit = async (
     event: React.FormEvent<HTMLFormElement>
@@ -56,20 +71,18 @@ export default function Startpage(props: Props) {
     event.preventDefault();
     try {
       await UserApi.updateUser(formData);
-      window.location.href = "/api/main";
+
+      if (props.fetchUser) {
+        alert("수정되었습니다.");
+        props.fetchUser(formData.nickname, formData.birthday, formData.gender);
+      }
+      if (!props.fetchUser) {
+        window.location.href = "/api/main";
+      }
     } catch (err: any) {
       throw new CustomError(err.message, "/start", true);
     }
   };
-
-  function checkCanSubmit(): boolean {
-    for (const value of Object.values(canSubmit)) {
-      if (!value) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   return (
     <form onSubmit={fetchUserDataSubmit}>
@@ -88,7 +101,6 @@ export default function Startpage(props: Props) {
       >
         <Nickname
           nickname={formData.nickname}
-          setValidFormButton={setValidFormButton}
           handleInputChange={handleInputChange}
           handleCanSubmit={handleCanSubmit}
         />
@@ -98,7 +110,6 @@ export default function Startpage(props: Props) {
           handleCanSubmit={handleCanSubmit}
         />
         <Gender
-
           gender={formData.gender}
           handleInputChange={handleInputChange}
           handleCanSubmit={handleCanSubmit}
@@ -122,7 +133,7 @@ export default function Startpage(props: Props) {
             //   justifyContent: "flex-end",
             //   marginRight: "10%",
             // }}
-            disabled={checkCanSubmit()}
+            disabled={validFormButton}
           >
             제출
           </button>

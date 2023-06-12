@@ -1,6 +1,7 @@
 import React from "react";
-import axios from "@script/axios";
-import { CustomError } from "../error/CatchError";
+import axios from "@root/scripts/axios";
+import { CustomError } from "../components/error/CatchError";
+import { UserListData } from "../Types/interface/user/user";
 
 interface updateUserForm {
   nickname: string;
@@ -30,7 +31,7 @@ export class UserApi {
       const userData = JSON.parse(localStorageUser)
       return userData
     } else {
-      const userData = await UserApi.findOneByUserId()
+      const userData: UserListData = await UserApi.findOneByUserId()
       localStorage.setItem('user', JSON.stringify(userData));
 
       return userData
@@ -76,7 +77,7 @@ export class UserApi {
       birthday: new Date(form.birthday),
       gender: form.gender,
     };
-
+    localStorage.removeItem('user')
     await axios.put("/user", payload);
   };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import "@css/logo.css";
-import { logoClassNameInterface } from "../Types/interface/interface";
+import { logoClassNameInterface } from "../../Types/interface/interface";
 
 export default function UkeydockLogo(props: logoClassNameInterface) {
   return (

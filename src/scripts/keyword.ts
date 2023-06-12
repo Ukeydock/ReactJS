@@ -1,4 +1,4 @@
-import axios from "@script/axios";
+import axios from "@root/scripts/axios";
 import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
 
 export class KeywordApi {

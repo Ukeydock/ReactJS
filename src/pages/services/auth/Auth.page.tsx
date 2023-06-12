@@ -1,8 +1,8 @@
 import GoogleLoginButton from "src/components/buttons/GoogleLoginButton";
 import UkeydockLogo from "@root/components/Logo/UkeydockLogo";
-import { logoClassName } from "@root/components/Types/enum/keydog";
+import { logoClassName } from "@root/Types/enum/keydog";
 import Keydog from "@root/components/Image/Keydog";
-import { imageClassName } from "@root/components/Types/enum/image";
+import { imageClassName } from "@root/Types/enum/image";
 
 export default function AuthMain() {
   return (

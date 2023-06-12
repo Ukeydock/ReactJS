@@ -1,4 +1,4 @@
-import axios from "@script/axios";
+import axios from "@root/scripts/axios";
 
 export class VideoApi {
   static findByKeyword = async (keyword: string) => {

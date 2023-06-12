@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "@css/Text.css";
 import "@css/InputBox.css";
-import { textColor } from "@root/components/Types/enum/text";
+import { textColor } from "@root/Types/enum/text";
 
 function verifyBirthday(birthday: string): string {
   const now = new Date(Date.now());
@@ -43,17 +43,16 @@ interface props {
 const defaultBirthdayMessage = "생일을 입력해주세요.";
 
 export default function Birthday(props: props) {
-  const [birthday, setBirthday] = useState(props.birthday ? props.birthday : "");
+  const [birthday, setBirthday] = useState(
+    props.birthday ? props.birthday : ""
+  );
   const [birthdayMessage, setBirthdayMessage] = useState<birthdayMessage>({
     message: defaultBirthdayMessage,
     color: textColor.red,
   });
 
-
-
   useEffect(() => {
     if (birthday.length >= 10) {
-
       props.handleInputChange({ key: "birthday", value: birthday });
       props.handleCanSubmit({ key: "birthday", value: true });
 

@@ -9,7 +9,7 @@ import ErrorBoundary from "./components/error/CatchError";
 import Startpage from "./pages/services/start/Start.page";
 import Mainpage from "./pages/services/main/Mainpage";
 import SearchPage from "./pages/services/main/SearchPage";
-import UserPage from "./pages/services/main/Userpage";
+import UserPage from "./pages/services/user/Userpage";
 
 const Layout = () => {
   return (

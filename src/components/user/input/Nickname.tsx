@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "@css/Text.css";
 import "@css/InputBox.css";
 import { useDebounce } from "@root/hooks/useDebounce";
-import { textColor } from "@root/components/Types/enum/text";
+import { textColor } from "@root/Types/enum/text";
 
 interface regNickname {
   message: string;
@@ -10,14 +10,16 @@ interface regNickname {
 }
 
 interface props {
-  nickname?: string
-  setValidFormButton: (value: boolean) => void;
+  nickname?: string;
+
   handleInputChange: (e: { key: string; value: string }) => void;
   handleCanSubmit: (e: { key: string; value: boolean }) => void;
 }
 
 export default function Nickname(props: props) {
-  const [nickname, setNickname] = useState<string>(props.nickname ? props.nickname : "");
+  const [nickname, setNickname] = useState<string>(
+    props.nickname ? props.nickname : ""
+  );
   const [regNickname, setRegNickname] = useState<regNickname>({
     message: "닉네임을 입력해주세요!",
     textColor: textColor.red,
@@ -25,11 +27,8 @@ export default function Nickname(props: props) {
 
   const debounceTerm = useDebounce(nickname, 500);
 
-
-
   useEffect(() => {
     fetchNicknameValid(nickname);
-
   }, [debounceTerm]);
 
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,9 +36,7 @@ export default function Nickname(props: props) {
   };
 
   function fetchNicknameValid(nickname: string) {
-
     if (nickname.length <= 0) {
-      props.setValidFormButton(false);
       setRegNickname({
         message: "닉네임을 입력해주세요!",
         textColor: textColor.red,
@@ -49,7 +46,6 @@ export default function Nickname(props: props) {
 
     const isValid = /^[a-z가-힣0-9]{2,16}$/;
     if (isValid.test(nickname)) {
-      props.setValidFormButton(true);
       props.handleInputChange({ key: "nickname", value: nickname });
       props.handleCanSubmit({ key: "nickname", value: true });
 
@@ -58,7 +54,6 @@ export default function Nickname(props: props) {
         textColor: textColor.green,
       });
     } else {
-      props.setValidFormButton(false);
       props.handleInputChange({ key: "nickname", value: "" });
       props.handleCanSubmit({ key: "nickname", value: false });
 

@@ -1,7 +1,7 @@
 import React from "react";
 import googleSocialLoginButton from "src/assets/images/googleLoginButton.jpeg";
 import "./Button.css";
-import { AuthApi } from "../scripts/auth";
+import { AuthApi } from "../../scripts/auth";
 
 export default function GoogleLoginButton() {
   return (

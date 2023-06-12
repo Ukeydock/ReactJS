@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
+import { KeywordData } from "../../Types/interface/keyword/keywordData.interface";
 
 interface Props {
   keywordLabel: string;

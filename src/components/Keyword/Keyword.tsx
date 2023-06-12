@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "@css/Button.css";
-import Button from "../user/input/Button/Button";
+import Button from "../User/input/Button/Button";
 
 interface props {
   keywordId: number;

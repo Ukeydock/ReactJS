@@ -1,8 +1,8 @@
 import Keyword from "@root/components/Keyword/Keyword";
 import Row from "@root/components/Row";
-import { SelectButton } from "@root/components/Types/interface/keyword/SelectButton";
-import { KeywordData } from "@root/components/Types/interface/keyword/keywordData.interface";
-import { KeywordApi } from "@root/components/scripts/keyword";
+import { SelectButton } from "@root/Types/interface/keyword/SelectButton";
+import { KeywordData } from "@root/Types/interface/keyword/keywordData.interface";
+import { KeywordApi } from "@root/scripts/keyword";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 

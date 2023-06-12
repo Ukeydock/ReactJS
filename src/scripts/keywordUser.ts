@@ -1,4 +1,4 @@
-import axios from "@script/axios";
+import axios from "@root/scripts/axios";
 
 export class KeywordUserApi {
   static findOneByKeywordId = async (keywordId: number): Promise<boolean> => {

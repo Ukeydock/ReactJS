@@ -3,10 +3,10 @@ import "@css/Nav.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "@root/assets/images/UkeydockLogo.png";
 
-import { UserListData } from "./Types/interface/user/user";
-import { UserApi } from "./scripts/user";
+import { UserListData } from "../Types/interface/user/user";
+import { UserApi } from "../scripts/user";
 import Keydog from "./Image/Keydog";
-import { imageClassName } from "./Types/enum/image";
+import { imageClassName } from "../Types/enum/image";
 
 export default function Nav() {
   const location = useLocation();
@@ -19,7 +19,6 @@ export default function Nav() {
   useEffect(() => {
     const fetchNavColorByScroll = async () => {
       window.addEventListener("scroll", () => {
-
         if (window.scrollY > 60) {
           setShow(true);
         } else {
@@ -28,8 +27,8 @@ export default function Nav() {
       });
     };
     const fetchUserData = async () => {
-      const loginUserData = await UserApi.findUser()
-      console.log("nav")
+      const loginUserData = await UserApi.findUser();
+      console.log("nav");
       setUserData(loginUserData);
     };
 
@@ -82,22 +81,21 @@ export default function Nav() {
             alt="User logo"
             src={userData.userProfileImage}
             className="nav__avatar"
-            onClick={() => window.location.href = "/api/user"}
+            onClick={() => (window.location.href = "/api/user")}
           />
         ) : (
           <img
             alt="Err"
-            src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbP2PbB_Seuw0wrFxWqjZmr7erq1ncL2N6Q&usqp=CAU"}
+            src={
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbP2PbB_Seuw0wrFxWqjZmr7erq1ncL2N6Q&usqp=CAU"
+            }
             className="nav__avatar"
-
-            onClick={() => window.location.href = "/api/user"}
+            onClick={() => (window.location.href = "/api/user")}
           />
         )}
-
-
       </div>
     </nav>
   );
 }
 
-export { };
+export {};

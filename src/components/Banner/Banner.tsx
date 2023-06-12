@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
-import axios from "@script/axios";
+import axios from "@root/scripts/axios";
 import "@css/Banner.css";
 import styled from "styled-components";
 import KeywordBanner from "./KeywordBanner";
-import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
-import { KeywordApi } from "../scripts/keyword";
+import { KeywordData } from "../../Types/interface/keyword/keywordData.interface";
+import { KeywordApi } from "../../scripts/keyword";
 import UserStatus from "./UserStatus";
-import { UserListData } from "../Types/interface/user/user";
-import { UserApi } from "../scripts/user";
+import { UserListData } from "../../Types/interface/user/user";
+import { UserApi } from "../../scripts/user";
 
 interface Props {
   subscribeKeywordCount: number;
 }
 
-
 export default function Banner(props: Props) {
-
   const [recentKeyword, setRecentKeyword] = useState<KeywordData[]>([]);
   const [popularKeyword, setPopularKeyword] = useState<KeywordData[]>([]);
-  const [recommendKeyword, setRecommendKeyword] = useState<KeywordData[]>([])
+  const [recommendKeyword, setRecommendKeyword] = useState<KeywordData[]>([]);
 
-  const [user, setUser] = useState<UserListData>()
+  const [user, setUser] = useState<UserListData>();
   useEffect(() => {
     const fetchRecentKeyword = async () => {
       const recentKeywordData = await KeywordApi.findRecomendKeyword(
@@ -51,25 +49,23 @@ export default function Banner(props: Props) {
       setUser(userData);
     };
 
-    fetchUserData()
+    fetchUserData();
     fetchRecentKeyword();
     fetchPopularKeyword();
-    fetchRecommendKeyword()
+    fetchRecommendKeyword();
   }, []);
-
 
   if (user) {
     return (
       <header className="banner">
         <UserStatus
-
           userId={user.userId}
           userProfileImg={user.userProfileImage}
           nickname={user.userNickname}
           age={user.userAge}
           gender={user.userGender}
-
-          subscribeKeywordCount={props.subscribeKeywordCount} />
+          subscribeKeywordCount={props.subscribeKeywordCount}
+        />
         <div className="popular__keyword_list">
           <KeywordBanner
             keywordLabel="최근 추가된 키워드에요!"
@@ -95,9 +91,8 @@ export default function Banner(props: Props) {
       </header>
     );
   } else {
-    return <div></div>
+    return <div></div>;
   }
-
 }
 
 const Iframe = styled.iframe`
