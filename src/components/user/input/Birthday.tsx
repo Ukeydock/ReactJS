@@ -2,32 +2,7 @@ import React, { useEffect, useState } from "react";
 import "@css/Text.css";
 import "@css/InputBox.css";
 import { textColor } from "@root/Types/enum/text";
-
-function verifyBirthday(birthday: string): string {
-  const now = new Date(Date.now());
-  const birth = new Date(birthday);
-
-  const age = now.getFullYear() - birth.getFullYear();
-  if (age < 10) {
-    return "어린이";
-  }
-  if (age < 20) {
-    return "10대";
-  }
-  if (age < 30) {
-    return "20대";
-  }
-  if (age < 40) {
-    return "30대";
-  }
-  if (age < 50) {
-    return "40대";
-  }
-  if (age < 60) {
-    return "50대";
-  }
-  return "60대 이상";
-}
+import { Common } from "@root/scripts/common";
 
 interface birthdayMessage {
   message: string;
@@ -57,7 +32,7 @@ export default function Birthday(props: props) {
       props.handleCanSubmit({ key: "birthday", value: true });
 
       setBirthdayMessage({
-        message: "당신은.. " + verifyBirthday(birthday) + "!",
+        message: "당신은.. " + Common.verifyBirthday(birthday) + "!",
         color: textColor.green,
       });
     }

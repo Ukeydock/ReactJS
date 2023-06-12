@@ -5,6 +5,7 @@ import Birthday from "@root/components/User/input/Birthday";
 import Gender from "@root/components/User/input/Gender";
 import Nickname from "@root/components/User/input/Nickname";
 import React, { useEffect, useState } from "react";
+import { Common } from "@root/scripts/common";
 
 interface canSubmit {
   nickname: boolean;
@@ -60,7 +61,6 @@ export default function Startpage(props: Props) {
   };
 
   useEffect(() => {
-    console.log(checkCanSubmit());
     setValidFormButton(checkCanSubmit());
   }, [canSubmit]);
 
@@ -74,7 +74,12 @@ export default function Startpage(props: Props) {
 
       if (props.fetchUser) {
         alert("수정되었습니다.");
-        props.fetchUser(formData.nickname, formData.birthday, formData.gender);
+
+        props.fetchUser(
+          formData.nickname,
+          Common.verifyBirthday(formData.birthday),
+          formData.gender
+        );
       }
       if (!props.fetchUser) {
         window.location.href = "/api/main";

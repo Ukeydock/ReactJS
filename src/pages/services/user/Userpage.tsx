@@ -7,10 +7,11 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Filter from "@root/components/Video/Filter/Filter";
 import VideoList from "@root/components/Video/List";
+import Mine from "@root/components/User/Filter/Mine";
+import Recent from "@root/components/User/Filter/Recent";
 
 export default function UserPage() {
   const [searchParams] = useSearchParams();
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   // 쿼리 값 가져오기
   const queryUserId = searchParams.get("userId");
 
@@ -21,17 +22,6 @@ export default function UserPage() {
 
   const fetchActiveButton = (button: `mine` | `recent` | `otherUser`) => {
     setActiveButton(button);
-  };
-
-  const fetchUser = (nickname: string, age: string, gender: UserGender) => {
-    if (!user) return;
-
-    const newUser = { ...user };
-    newUser.userNickname = nickname;
-    newUser.userAge = age;
-    newUser.userGender = gender;
-
-    setUser(newUser);
   };
 
   useEffect(() => {
@@ -53,37 +43,9 @@ export default function UserPage() {
 
         {/* 나의 페이지 */}
         {activeButton === `mine` ? (
-          <div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <button
-                className="button__border button__text"
-                style={{ backgroundColor: "#666666" }}
-                onClick={() => setIsOpenModal(true)}
-              >
-                프로필 수정
-              </button>
-            </div>
-            {isOpenModal && (
-              <UserProfileEditModal
-                user={user}
-                fetchUser={fetchUser}
-                setIsOpenModal={setIsOpenModal}
-              />
-            )}
-
-            <UserStatus
-              userId={queryUserId ? parseInt(queryUserId) : user.userId}
-              nickname={user?.userNickname}
-              age={user.userAge}
-              gender={user.userGender}
-              userProfileImg={user.userProfileImage}
-            />
-          </div>
+          <Mine user={user} setUser={setUser} />
         ) : activeButton === `recent` ? (
-          <div>
-            <Filter user={user} />
-            <VideoList />
-          </div>
+          <Recent user={user} />
         ) : activeButton === `otherUser` ? (
           <div> 최근 본 영상</div>
         ) : (
