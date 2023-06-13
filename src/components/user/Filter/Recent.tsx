@@ -1,3 +1,8 @@
+import {
+  FilterInterface,
+  order,
+  sort,
+} from "@root/Types/interface/filter/filter.interface";
 import { UserListData } from "@root/Types/interface/user/user";
 import Filter from "@root/components/Video/Filter/Filter";
 import VideoList from "@root/components/Video/List";
@@ -6,12 +11,6 @@ import React, { useEffect, useState } from "react";
 
 interface Props {
   user: UserListData;
-}
-
-interface order {
-  key: string;
-  ko: string;
-  en: string;
 }
 
 const orderObject = {
@@ -27,37 +26,22 @@ const orderObject = {
   },
 };
 
-type sort = `date` | `view` | `like` | `comment`;
-
-interface Filter {
-  keyword: string[];
-  order: order;
-  sort: sort;
-}
-
 export default function Recent(props: Props) {
-  const [filter, setFilter] = useState<Filter>({
-    keyword: [],
+  const [filter, setFilter] = useState<FilterInterface>({
+    keyword: null,
     order: orderObject.ASC,
     sort: `date`,
   });
 
   useEffect(() => {
-    const fetchKeyword = async () => {
-      const keywordData = await KeywordApi.findAllByUserId(props.user.userId);
-      setFilter({
-        keyword: keywordData,
-        order: filter.order,
-        sort: filter.sort,
-      });
-    };
+    const fetchKeyword = async () => {};
 
     fetchKeyword();
   }, []);
 
   return (
     <div>
-      <Filter user={props.user} />
+      <Filter user={props.user} filter={filter} setFilter={setFilter} />
       <VideoList />
     </div>
   );

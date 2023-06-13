@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { UserListData } from "../../Types/interface/user/user";
 import "@css/user/User.css";
 import Keyword from "../Keyword/Keyword";
-import { SelectButton } from "../../Types/interface/keyword/SelectButton";
+import { SelectButton } from "../../Types/interface/keyword/SelectButton.interface";
 import { KeywordData } from "../../Types/interface/keyword/keywordData.interface";
 import { KeywordApi } from "../../scripts/keyword";
 

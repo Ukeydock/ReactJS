@@ -15,7 +15,6 @@ export default function Mine(props: Props) {
   const fetchUser = (nickname: string, age: string, gender: UserGender) => {
     if (!props.user) return;
 
-    console.log(nickname, age, gender);
     const newUser = { ...props.user };
     newUser.userNickname = nickname;
     newUser.userAge = age;

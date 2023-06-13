@@ -59,6 +59,8 @@
 }
 
 .filter__button {
+  width: 100px;
+  height: 40px;
   margin-right: 8px;
   border: 1px solid;
   border-radius: 10px;

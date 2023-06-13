@@ -1,6 +1,6 @@
 import Keyword from "@root/components/Keyword/Keyword";
 import Row from "@root/components/Row";
-import { SelectButton } from "@root/Types/interface/keyword/SelectButton";
+import { SelectButton } from "@root/Types/interface/keyword/SelectButton.interface";
 import { KeywordData } from "@root/Types/interface/keyword/keywordData.interface";
 import { KeywordApi } from "@root/scripts/keyword";
 import React, { useEffect, useState } from "react";
