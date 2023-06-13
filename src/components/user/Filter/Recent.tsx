@@ -1,7 +1,8 @@
 import {
   FilterInterface,
-  order,
+  orderObject,
   sort,
+  sortObject,
 } from "@root/Types/interface/filter/filter.interface";
 import { UserListData } from "@root/Types/interface/user/user";
 import Filter from "@root/components/Video/Filter/Filter";
@@ -13,32 +14,14 @@ interface Props {
   user: UserListData;
 }
 
-const orderObject = {
-  ASC: {
-    key: `ASC`,
-    ko: `오름차순`,
-    en: `ASC`,
-  },
-  DESC: {
-    key: `DESC`,
-    ko: `내림차순`,
-    en: `DESC`,
-  },
-};
-
 export default function Recent(props: Props) {
   const [filter, setFilter] = useState<FilterInterface>({
-    keyword: null,
-    order: orderObject.ASC,
-    sort: `date`,
+    keyword: "",
+    order: orderObject.DESC,
+    sort: sortObject.date,
   });
 
-  useEffect(() => {
-    const fetchKeyword = async () => {};
-
-    fetchKeyword();
-  }, []);
-
+  console.log(filter);
   return (
     <div>
       <Filter user={props.user} filter={filter} setFilter={setFilter} />

@@ -7,18 +7,20 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { filterValue } from "@root/Types/interface/filter/filter.interface";
+import { filterKeyValue } from "@root/Types/interface/filter/filter.interface";
 
 // import "swiper/swiper.min.css";
 // import "swiper/components/navigation/navigation.min.css";
 
 interface Props {
   setFilterValue: (value: any) => void;
-  filterList: { key: string; ko: string; en: string }[];
+  filterList: { key: string; ko?: string; en?: string }[];
   modalData: {
     isOpen: boolean;
-    setModal: (value: filterValue) => void;
+    setModal: (value: filterKeyValue) => void;
+    key: filterKeyValue;
   };
+  buttonNmae: string | null;
 }
 
 export default function KeywordFilter(props: Props) {
@@ -32,10 +34,17 @@ export default function KeywordFilter(props: Props) {
     }
   };
 
+  const closeVideoModal = () => {
+    props.modalData.setModal(null);
+  };
+
   return (
     <div>
-      <button className="filter__button">
-        키워드 ⇩{/* <div>아래</div> */}
+      <button
+        className="filter__button"
+        onClick={() => props.modalData.setModal(props.modalData.key)}
+      >
+        {props.buttonNmae ? props.buttonNmae : props.buttonNmae + "⇩"}
       </button>
       {/* 해당 버튼을 클릭한 경우에만 모달 출력 */}
       {props.modalData.isOpen && (
@@ -43,6 +52,14 @@ export default function KeywordFilter(props: Props) {
           className="background__color"
           style={{ justifyContent: "center", alignItems: "center" }}
         >
+          <div
+            className="close__button"
+            onClick={() => {
+              closeVideoModal();
+            }}
+          >
+            <p>X</p>
+          </div>
           <div className="filter__modal">
             <button
               onClick={() => {
@@ -72,7 +89,10 @@ export default function KeywordFilter(props: Props) {
                     <button
                       className="filter__button"
                       key={filter.key}
-                      onClick={() => props.setFilterValue(filter.key)}
+                      onClick={() => {
+                        props.modalData.setModal(null);
+                        props.setFilterValue(filter.key);
+                      }}
                     >
                       {filter.ko}
                     </button>
