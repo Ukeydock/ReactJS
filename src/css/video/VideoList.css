@@ -1,0 +1,19 @@
+.video__list__box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+
+}
+
+.video__list__item__box {
+    display: flex;
+    /* flex-direction: column; */
+        flex-basis: 20%;
+        flex-direction: column;
+    border: 1px solid #333;
+    background-color: azure;
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+}

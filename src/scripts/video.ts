@@ -1,3 +1,4 @@
+import { FilterInterface } from "@root/Types/interface/filter/filter.interface";
 import axios from "@root/scripts/axios";
 
 export class VideoApi {
@@ -11,10 +12,23 @@ export class VideoApi {
     return videoDetailData.data;
   };
 
+  static findViewVideoByUserId = async (userId?: number, filter ?: FilterInterface) => {
+    const videoData = await axios.get(`/video/view/@${userId ? userId : 0}`, {
+      params: {
+        keyword : filter?.keyword,
+        order : filter?.order.key,
+        sort : filter?.sort.key,
+      }
+    });
+    return videoData.data.videoData;
+  }
 
 }
 
 export class VideoViewApi {
+
+ 
+
   static create = async (videoDbId: number) => {
 
     const videoViewData = await axios.post(`/view/@${videoDbId}`);

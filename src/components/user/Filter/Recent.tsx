@@ -21,11 +21,10 @@ export default function Recent(props: Props) {
     sort: sortObject.date,
   });
 
-  console.log(filter);
   return (
     <div>
       <Filter user={props.user} filter={filter} setFilter={setFilter} />
-      <VideoList />
+      <VideoList user={props.user} filter={filter} />
     </div>
   );
 }

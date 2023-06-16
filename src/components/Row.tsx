@@ -14,17 +14,11 @@ import { KeywordUserApi } from "../scripts/keywordUser";
 import VideoModal from "./videoModal/videoModal";
 import { VideoData } from "../Types/interface/video/videoData.interface";
 import { KeywordData } from "../Types/interface/keyword/keywordData.interface";
+import { Common } from "@root/scripts/common";
 
 interface props {
   keywordData: KeywordData;
   setVideoDbId?: any;
-}
-
-function truncateString(str: string): string {
-  if (str.length > 30) {
-    return str.slice(0, 27) + "...";
-  }
-  return str;
 }
 
 export default function Row(props: props) {
@@ -127,7 +121,9 @@ export default function Row(props: props) {
                     }
                   }}
                 />
-                <p key={video.videoId}>{truncateString(video.videoTitle)}</p>
+                <p key={video.videoId}>
+                  {Common.truncateString(video.videoTitle)}
+                </p>
               </SwiperSlide>
             ))}
           </div>
