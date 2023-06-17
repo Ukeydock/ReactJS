@@ -38,8 +38,8 @@ export class Common {
         return "60대 이상";
         }
 
-    public static truncateString(str: string): string {
-        if (str.length > 30) {
+    public static truncateString(str: string , length : number = 30): string {
+        if (str.length > length) {
             return str.slice(0, 27) + "...";
         }
         return str;
