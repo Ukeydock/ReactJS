@@ -18,7 +18,7 @@ export default function UserPage() {
   const [user, setUser] = useState<UserListData>();
   const [activeButton, setActiveButton] = useState<
     `mine` | `recent` | `otherUser`
-  >("recent");
+  >("mine");
 
   const fetchActiveButton = (button: `mine` | `recent` | `otherUser`) => {
     setActiveButton(button);

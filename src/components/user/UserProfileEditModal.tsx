@@ -37,6 +37,7 @@ export default function UserProfileEditModal(props: Props) {
           backgroundColor: "#bbbbbb",
           borderRadius: "10%",
           border: "10px solid #333333",
+          color: "black",
         }}
       >
         <Startpage

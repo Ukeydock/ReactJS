@@ -18,7 +18,7 @@ export default function VideoList(props: Props) {
 
   useEffect(() => {
     const fetchVideo = async () => {
-      const video: VideoData[] = await VideoApi.findViewVideoByUserId(
+      const video = await VideoApi.findViewVideoByUserId(
         props.user.userId,
         props.filter
       );
@@ -26,11 +26,13 @@ export default function VideoList(props: Props) {
     };
     fetchVideo();
   }, [props.filter]);
-  console.log(video);
   return (
     <div className="video__list__box">
-      {video?.map((video: VideoData) => (
+      {video?.map((video) => (
         <div className="video__list__item__box" key={video.videoDBId}>
+          <div>
+            <p>키워드</p>
+          </div>
           <img
             key={video.videoDBId}
             // style={{ padding: "25px 0" }}

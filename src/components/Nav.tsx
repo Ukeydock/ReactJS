@@ -43,9 +43,6 @@ export default function Nav() {
   }, []);
 
   async function handleChange(e: any) {
-    if (e.target.value === "") {
-      window.location.href = "/api/main";
-    }
     setKeywordValue(e.target.value);
 
     navigate(`/api/search?keyword=${e.target.value}`);
