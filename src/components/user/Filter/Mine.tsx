@@ -3,6 +3,7 @@ import { UserApi } from "@root/scripts/user";
 import React, { useEffect, useState } from "react";
 import UserProfileEditModal from "../UserProfileEditModal";
 import UserStatus from "@root/components/Banner/UserStatus";
+import UserMainKeywordEditModal from "../UserMainKeywordEditModal";
 
 interface Props {
   user: UserListData;
@@ -10,35 +11,56 @@ interface Props {
 }
 
 export default function Mine(props: Props) {
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [isOpenProfileModal, setIsOpenProfileModal] = useState<boolean>(false);
+  const [isOpenMainKeyword, setisOpenMainKeyword] = useState<boolean>(false);
 
-  const fetchUser = (nickname: string, age: string, gender: UserGender) => {
-    if (!props.user) return;
-
+  const fetchUser = (
+    nickname: string | null,
+    age: string | null,
+    gender: UserGender | null,
+    mainKeyword: string | null
+  ) => {
     const newUser = { ...props.user };
-    newUser.userNickname = nickname;
-    newUser.userAge = age;
-    newUser.userGender = gender;
+    if (nickname) newUser.userNickname = nickname;
+    if (age) newUser.userAge = age;
+    if (gender) newUser.userGender = gender;
+    if (mainKeyword) newUser.userMainKeyword = mainKeyword;
 
     props.setUser(newUser);
   };
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ display: "flex", justifyContent: "center", gap: "5px" }}>
         <button
           className="button__border button__text"
           style={{ backgroundColor: "#666666" }}
-          onClick={() => setIsOpenModal(true)}
+          onClick={() => setIsOpenProfileModal(true)}
         >
           프로필 수정
         </button>
+        <button
+          className="button__border button__text"
+          style={{ backgroundColor: "#666666" }}
+          onClick={() => setisOpenMainKeyword(true)}
+        >
+          대표 키워드 수정
+        </button>
       </div>
-      {isOpenModal && (
+      {/*  프로필 수정 모달 */}
+      {isOpenProfileModal && (
         <UserProfileEditModal
           user={props.user}
           fetchUser={fetchUser}
-          setIsOpenModal={setIsOpenModal}
+          setIsOpenModal={setIsOpenProfileModal}
+        />
+      )}
+      {/* 대표 키워드 수정 모달 */}
+      {isOpenMainKeyword && (
+        <UserMainKeywordEditModal
+          isOpenMainKeyword={isOpenMainKeyword}
+          setIsOpenModal={setisOpenMainKeyword}
+          fetchUser={fetchUser}
         />
       )}
 
@@ -48,6 +70,7 @@ export default function Mine(props: Props) {
         age={props.user.userAge}
         gender={props.user.userGender}
         userProfileImg={props.user.userProfileImage}
+        mainKeyword={props.user.userMainKeyword}
       />
     </div>
   );

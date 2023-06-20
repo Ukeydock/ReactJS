@@ -13,6 +13,7 @@ interface Props {
   nickname: string;
   age: string;
   gender: UserGender;
+  mainKeyword: string;
 }
 
 /**
@@ -124,7 +125,7 @@ export default function UserStatus(props: Props) {
               </div>
               <div className="banner__user__status">
                 <div className="banner__user_status__info">
-                  <p>대표 키워드 : </p>
+                  <p>대표 키워드 : {props.mainKeyword}</p>
                 </div>
                 <div className="banner__user_status__info">
                   <p>

@@ -8,7 +8,12 @@ import { Common } from "../../scripts/common";
 
 interface Props {
   user: UserListData;
-  fetchUser: (nickname: string, age: string, gender: UserGender) => void;
+  fetchUser: (
+    nickname: string,
+    age: string,
+    gender: UserGender,
+    mainKeyword: string
+  ) => void;
   setIsOpenModal: (modal: boolean) => void;
 }
 

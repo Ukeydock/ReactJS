@@ -27,7 +27,7 @@ export default function Nav() {
       });
     };
     const fetchUserData = async () => {
-      const loginUserData = await UserApi.findUser();
+      const loginUserData = await UserApi.findOneByUserId();
       setUserData(loginUserData);
     };
 

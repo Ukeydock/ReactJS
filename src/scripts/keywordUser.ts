@@ -11,6 +11,11 @@ export class KeywordUserApi {
     await axios.post(`/keyword-user/${keywordId}`);
   };
 
+  static updateMainKeyword = async (keywordId: number) => {
+    const keywordData = await axios.patch(`/keyword-user/main/@${keywordId}`);
+    return keywordData.data;
+  }
+
   static deleteByKeywordId = async (keywordId: number): Promise<void> => {
     await axios.delete(`/keyword-user/@${keywordId}`);
   };

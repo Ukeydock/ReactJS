@@ -19,24 +19,7 @@ export class UserApi {
 
 
 
-  /**
-   * 
-   * @returns 유저 정보
-   * @description 로컬 스토리지에 유저 정보가 있다면 로컬 스토리지에서 유저 정보를 가져오고 없다면 서버에서 유저 정보를 가져온다.
-   */
-  static findUser = async () => {
 
-    const localStorageUser = localStorage.getItem('user')
-    if (localStorageUser) {
-      const userData = JSON.parse(localStorageUser)
-      return userData
-    } else {
-      const userData: UserListData = await UserApi.findOneByUserId()
-      localStorage.setItem('user', JSON.stringify(userData));
-
-      return userData
-    }
-  }
 
 
   /**

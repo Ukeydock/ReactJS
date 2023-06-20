@@ -20,7 +20,12 @@ interface formData {
 }
 
 interface Props {
-  fetchUser?: (nickname: string, age: string, gender: UserGender) => void;
+  fetchUser?: (
+    nickname: string,
+    age: string,
+    gender: UserGender,
+    mainKeyword: string
+  ) => void;
   nickname?: string;
   birthday?: string;
   gender?: UserGender;
@@ -78,7 +83,8 @@ export default function Startpage(props: Props) {
         props.fetchUser(
           formData.nickname,
           Common.verifyBirthday(formData.birthday),
-          formData.gender
+          formData.gender,
+          ""
         );
       }
       if (!props.fetchUser) {

@@ -34,6 +34,11 @@ export default function UserProfile(props: Props) {
 
     props.setSelectedButton({ keyword, keywordId });
   };
+
+  const goToUserPage = (userId: number) => {
+    window.location.href = `/api/user?userId=${userId}`;
+  };
+
   return (
     <div
       style={{
@@ -49,6 +54,9 @@ export default function UserProfile(props: Props) {
           className="avatar"
           src={props.userData.userProfileImage}
           alt="userProfile"
+          onClick={() => {
+            goToUserPage(props.userData.userId);
+          }}
         />
         <p>{props.userData.userNickname}</p>
       </div>
@@ -59,25 +67,18 @@ export default function UserProfile(props: Props) {
         <br />
         <p> {props.userData.userJob}</p>
       </div>
-      <div
-        style={{
-          display: "flex",
-          gap: "10px",
-          // flexDirection: "column",
-
-          flexFlow: "nowrap",
-          marginLeft: "10px",
-          color: "black",
-        }}
-      >
-        {keyword.map((keyword) => (
-          <Keyword
-            key={keyword.keywordId}
-            {...keyword}
-            selectedButton={props.selectedButton.keyword}
-            handleSelectButton={handleSelectButton}
-          />
-        ))}
+      <div className="keyword__box">
+        {keyword.map((keyword, idx) => {
+          if (idx > 3) return;
+          return (
+            <Keyword
+              key={keyword.keywordId}
+              {...keyword}
+              selectedButton={props.selectedButton.keyword}
+              handleSelectButton={handleSelectButton}
+            />
+          );
+        })}
       </div>
     </div>
   );

@@ -10,4 +10,5 @@ export interface UserListData {
   userProfileImage: string;
   userAge: string;
   userBirthday: Date;
+  userMainKeyword: string;
 }

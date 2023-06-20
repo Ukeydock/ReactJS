@@ -19,6 +19,7 @@ export default function Banner(props: Props) {
   const [recommendKeyword, setRecommendKeyword] = useState<KeywordData[]>([]);
 
   const [user, setUser] = useState<UserListData>();
+  console.log(user);
   useEffect(() => {
     const fetchRecentKeyword = async () => {
       const recentKeywordData = await KeywordApi.findRecomendKeyword(
@@ -45,7 +46,7 @@ export default function Banner(props: Props) {
     };
 
     const fetchUserData = async () => {
-      const userData = await UserApi.findUser();
+      const userData = await UserApi.findOneByUserId();
       setUser(userData);
     };
 
@@ -65,6 +66,7 @@ export default function Banner(props: Props) {
           age={user.userAge}
           gender={user.userGender}
           subscribeKeywordCount={props.subscribeKeywordCount}
+          mainKeyword={user.userMainKeyword}
         />
         <div className="popular__keyword_list">
           <KeywordBanner

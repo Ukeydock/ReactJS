@@ -40,12 +40,14 @@ export default function KeywordFilter(props: Props) {
 
   return (
     <div>
-      <button
-        className="filter__button"
-        onClick={() => props.modalData.setModal(props.modalData.key)}
-      >
-        {props.buttonNmae ? props.buttonNmae : props.buttonNmae + "⇩"}
-      </button>
+      {props.buttonNmae !== null && (
+        <button
+          className="filter__button"
+          onClick={() => props.modalData.setModal(props.modalData.key)}
+        >
+          {props.buttonNmae ? props.buttonNmae : props.buttonNmae + "⇩"}
+        </button>
+      )}
       {/* 해당 버튼을 클릭한 경우에만 모달 출력 */}
       {props.modalData.isOpen && (
         <div

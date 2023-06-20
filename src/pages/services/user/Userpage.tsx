@@ -26,7 +26,9 @@ export default function UserPage() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const userData = await UserApi.findUser();
+      const userData = await UserApi.findOneByUserId(
+        queryUserId ? parseInt(queryUserId) : 0
+      );
       setUser(userData);
     };
 
