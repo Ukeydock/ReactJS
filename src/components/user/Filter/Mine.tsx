@@ -61,6 +61,7 @@ export default function Mine(props: Props) {
           isOpenMainKeyword={isOpenMainKeyword}
           setIsOpenModal={setisOpenMainKeyword}
           fetchUser={fetchUser}
+          currentKeyword={props.user.userMainKeyword}
         />
       )}
 

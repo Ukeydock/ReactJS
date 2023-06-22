@@ -14,7 +14,6 @@ interface Props {
 
 export default function VideoList(props: Props) {
   const [video, setVideo] = useState<VideoData[]>([]);
-  const [videoDbId, setVideoDbId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchVideo = async () => {
@@ -22,31 +21,41 @@ export default function VideoList(props: Props) {
         props.user.userId,
         props.filter
       );
+
       setVideo(video);
     };
     fetchVideo();
   }, [props.filter]);
+  console.log(video);
   return (
     <div className="video__list__box">
       {video?.map((video) => (
         <div className="video__list__item__box" key={video.videoDBId}>
-          <div>
-            <p>키워드</p>
+          <div className="button__text ">
+            <p>{video.videoKeyword}</p>
           </div>
-          <img
-            key={video.videoDBId}
-            // style={{ padding: "25px 0" }}
-            className={`row__poster`}
-            src={video.videoThumbnail}
-            alt="영화들 이미지"
-            onClick={async () => {
-              // fetchVideoModal(video.videoDBId);
-            }}
-          />
+          <div>
+            <img
+              key={video.videoDBId}
+              // style={{ padding: "25px 0" }}
+              className={`row__poster`}
+              src={video.videoThumbnail}
+              alt="영화들 이미지"
+              onClick={async () => {
+                // fetchVideoModal(video.videoDBId);
+              }}
+            />
+          </div>
+          <div style={{ height: "130px" }}>
+            <p key={video.videoId}>
+              {Common.truncateString(video.videoTitle, 100)}
+            </p>
+          </div>
 
-          <p key={video.videoId}>
-            {Common.truncateString(video.videoTitle, 100)}
-          </p>
+          <div>
+            <p>👀{video.videoViewCount}</p>
+            <p>{Common.convertDateToString(new Date(video.videoCreatedAt))}</p>
+          </div>
         </div>
       ))}
       {/* {videoDbId && (

@@ -11,6 +11,9 @@ export interface VideoData {
     videoChannelDescription: string;
     videoChannelThumbnail: string;
   };
+  videoKeyword: string;
+  videoViewCount: number;
+  videoCreatedAt: Date
 }
 
 export interface videoDetailData {

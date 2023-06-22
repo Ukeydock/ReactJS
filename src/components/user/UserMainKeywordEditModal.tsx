@@ -15,6 +15,7 @@ interface Props {
     gender: UserGender | null,
     mainKeyword: string | null
   ) => void;
+  currentKeyword: string;
 }
 
 export default function UserMainKeywordEditModal(props: Props) {
@@ -71,6 +72,7 @@ export default function UserMainKeywordEditModal(props: Props) {
             setModal: fetchIsOpenModal,
             key: "keyword",
           }}
+          currentValue={props.currentKeyword}
         />
       </div>
     </div>

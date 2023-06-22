@@ -81,6 +81,7 @@ export default function Filter(props: Props) {
             setModal: setModal,
             key: "keyword",
           }}
+          currentValue={props.filter.keyword}
         />
         <KeywordFilter
           buttonNmae={props.filter.sort.ko || "정렬기준"}
@@ -91,6 +92,7 @@ export default function Filter(props: Props) {
             setModal: setModal,
             key: "sort",
           }}
+          currentValue={props.filter.sort.key}
         />
         <KeywordFilter
           buttonNmae={props.filter.order.ko || "정렬순서"}
@@ -101,6 +103,7 @@ export default function Filter(props: Props) {
             setModal: setModal,
             key: "order",
           }}
+          currentValue={props.filter.order.key}
         />
       </div>
     </div>

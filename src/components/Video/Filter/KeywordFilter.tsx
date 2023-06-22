@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "@css/video/Modal.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper";
@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { filterKeyValue } from "@root/Types/interface/filter/filter.interface";
+import FilterPropButton from "./FilterPropButton";
 
 // import "swiper/swiper.min.css";
 // import "swiper/components/navigation/navigation.min.css";
@@ -21,11 +22,11 @@ interface Props {
     key: filterKeyValue;
   };
   buttonNmae: string | null;
+  currentValue: string;
 }
 
 export default function KeywordFilter(props: Props) {
   const swiperRef = useRef<any>(null);
-
   const fetchSlide = (arrow: "up" | "down") => {
     if (swiperRef.current && swiperRef.current.swiper) {
       arrow == "up"
@@ -33,7 +34,6 @@ export default function KeywordFilter(props: Props) {
         : swiperRef.current.swiper.slidePrev();
     }
   };
-
   const closeVideoModal = () => {
     props.modalData.setModal(null);
   };
@@ -64,6 +64,7 @@ export default function KeywordFilter(props: Props) {
           </div>
           <div className="filter__modal">
             <button
+              style={{ cursor: "pointer" }}
               onClick={() => {
                 fetchSlide("up");
               }}
@@ -88,21 +89,19 @@ export default function KeywordFilter(props: Props) {
                     key={filter.key}
                     style={{ display: "flex", alignItems: "center" }}
                   >
-                    <button
-                      className="filter__button"
-                      key={filter.key}
-                      onClick={() => {
-                        props.modalData.setModal(null);
-                        props.setFilterValue(filter.key);
-                      }}
-                    >
-                      {filter.ko}
-                    </button>
+                    <FilterPropButton
+                      setFilterValue={props.setFilterValue}
+                      filter={filter}
+                      modalData={props.modalData}
+                      // 현재 선택된 필터 | 키워드가 같으면 true
+                      isCurrent={props.currentValue === filter.key}
+                    />
                   </SwiperSlide>
                 ))}
               </div>
             </Swiper>
             <button
+              style={{ cursor: "pointer" }}
               onClick={() => {
                 fetchSlide("down");
               }}
