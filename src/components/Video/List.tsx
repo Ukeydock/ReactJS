@@ -26,7 +26,27 @@ export default function VideoList(props: Props) {
     };
     fetchVideo();
   }, [props.filter]);
-  console.log(video);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.pageYOffset;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      console.log(scrollPosition, windowHeight, documentHeight);
+      if (scrollPosition + windowHeight >= documentHeight) {
+        console.log("다음 페이지 호출");
+      }
+      // 스크롤 위치, 브라우저 창 높이, 문서 전체 높이에 대한 로직 수행
+      // 여기서 필요에 따라 추가 콘텐츠를 요청할 수 있음
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <div className="video__list__box">
       {video?.map((video) => (
