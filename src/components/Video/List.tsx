@@ -14,12 +14,15 @@ interface Props {
 
 export default function VideoList(props: Props) {
   const [video, setVideo] = useState<VideoData[]>([]);
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     const fetchVideo = async () => {
       const video = await VideoApi.findViewVideoByUserId(
         props.user.userId,
-        props.filter
+        props.filter,
+        page,
+        16
       );
 
       setVideo(video);
@@ -34,7 +37,8 @@ export default function VideoList(props: Props) {
       const documentHeight = document.documentElement.scrollHeight;
       console.log(scrollPosition, windowHeight, documentHeight);
       if (scrollPosition + windowHeight >= documentHeight) {
-        console.log("다음 페이지 호출");
+        setPage(page + 1);
+        console.log(page);
       }
       // 스크롤 위치, 브라우저 창 높이, 문서 전체 높이에 대한 로직 수행
       // 여기서 필요에 따라 추가 콘텐츠를 요청할 수 있음

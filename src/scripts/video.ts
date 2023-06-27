@@ -12,12 +12,14 @@ export class VideoApi {
     return videoDetailData.data;
   };
 
-  static findViewVideoByUserId = async (userId?: number, filter ?: FilterInterface) => {
+  static findViewVideoByUserId = async (userId?: number, filter ?: FilterInterface, page ?: number, limit ?:number) => {
     const videoData = await axios.get(`/video/view/@${userId ? userId : 0}`, {
       params: {
         keyword : filter?.keyword,
         order : filter?.order.key,
         sort : filter?.sort.key,
+        page : page ?? 1,
+        limit : limit ?? 16
       }
     });
     return videoData.data.videoData;
