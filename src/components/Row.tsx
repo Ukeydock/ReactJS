@@ -75,7 +75,7 @@ export default function Row(props: props) {
               isExistKeyword == true ? "video__button__active" : ""
             }`}
           >
-            {isExistKeyword == true ? "등록한 키워드!" : "키워드 추가"}
+            {isExistKeyword == true ? "구독!" : "구독하기"}
           </button>
         </h2>
 

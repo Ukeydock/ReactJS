@@ -9,7 +9,7 @@ export interface filterKeyObject {
 }
 
 export interface FilterInterface {
-  keyword: string ;
+  keyword : string ;
   order: filterKeyObject;
   sort: filterKeyObject;
 }

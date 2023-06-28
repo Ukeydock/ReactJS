@@ -14,6 +14,8 @@ interface Props {
   age: string;
   gender: UserGender;
   mainKeyword: string;
+
+  isMine: boolean;
 }
 
 /**
@@ -43,8 +45,11 @@ export default function UserStatus(props: Props) {
   }, []);
 
   const handleImageChange = async () => {
-    if (inputFileRef.current) {
+    if (inputFileRef.current && props.isMine) {
       inputFileRef.current.click();
+    } else {
+      console.log("다른 사람의 프로필 들어가기");
+      window.open(props.userProfileImg, "_blank");
     }
   };
 

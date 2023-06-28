@@ -58,6 +58,7 @@ export default function SearchPage() {
           {searchKeywordResults.map((searchKeywordData) => {
             return (
               <Keyword
+                key={searchKeywordData.keywordId}
                 {...searchKeywordData}
                 selectedButton={selectedButton.keyword}
                 handleSelectButton={handleSelectButton}

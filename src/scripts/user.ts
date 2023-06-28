@@ -60,8 +60,7 @@ export class UserApi {
       birthday: new Date(form.birthday),
       gender: form.gender,
     };
-    localStorage.removeItem('user')
-    await axios.put("/user", payload);
+    await axios.put(`/user`, payload);
   };
 
   static updateUserProfile = async (formData: FormData) => {

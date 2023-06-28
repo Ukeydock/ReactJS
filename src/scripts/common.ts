@@ -39,14 +39,14 @@ export class Common {
         }
 
     public static truncateString(str: string , length : number = 30): string {
-        if (str.length > length) {
+
+        if (str && str.length > length) {
             return str.slice(0, 27) + "...";
         }
         return str;
 }
 
     public static convertDateToString(date: Date): string {
-        console.log(date)
         const year = date.getFullYear();
         const month = date.getMonth() + 1;
         const day = date.getDate();

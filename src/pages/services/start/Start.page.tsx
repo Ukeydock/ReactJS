@@ -76,7 +76,7 @@ export default function Startpage(props: Props) {
     event.preventDefault();
     try {
       await UserApi.updateUser(formData);
-
+      // fetchUser가 있는 경우는 이미 로그인을 한 상태, 정보를 수정하고 넘기기
       if (props.fetchUser) {
         alert("수정되었습니다.");
 

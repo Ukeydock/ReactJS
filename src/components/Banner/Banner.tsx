@@ -67,6 +67,7 @@ export default function Banner(props: Props) {
           gender={user.userGender}
           subscribeKeywordCount={props.subscribeKeywordCount}
           mainKeyword={user.userMainKeyword}
+          isMine={true}
         />
         <div className="popular__keyword_list">
           <KeywordBanner

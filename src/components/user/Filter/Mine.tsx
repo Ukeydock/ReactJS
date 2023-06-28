@@ -8,6 +8,7 @@ import UserMainKeywordEditModal from "../UserMainKeywordEditModal";
 interface Props {
   user: UserListData;
   setUser: (user: UserListData) => void;
+  isMine: boolean;
 }
 
 export default function Mine(props: Props) {
@@ -31,22 +32,24 @@ export default function Mine(props: Props) {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "center", gap: "5px" }}>
-        <button
-          className="button__border button__text"
-          style={{ backgroundColor: "#666666" }}
-          onClick={() => setIsOpenProfileModal(true)}
-        >
-          프로필 수정
-        </button>
-        <button
-          className="button__border button__text"
-          style={{ backgroundColor: "#666666" }}
-          onClick={() => setisOpenMainKeyword(true)}
-        >
-          대표 키워드 수정
-        </button>
-      </div>
+      {props.isMine && (
+        <div style={{ display: "flex", justifyContent: "center", gap: "5px" }}>
+          <button
+            className="button__border button__text"
+            style={{ backgroundColor: "#666666" }}
+            onClick={() => setIsOpenProfileModal(true)}
+          >
+            프로필 수정
+          </button>
+          <button
+            className="button__border button__text"
+            style={{ backgroundColor: "#666666" }}
+            onClick={() => setisOpenMainKeyword(true)}
+          >
+            대표 키워드 수정
+          </button>
+        </div>
+      )}
       {/*  프로필 수정 모달 */}
       {isOpenProfileModal && (
         <UserProfileEditModal
@@ -72,6 +75,7 @@ export default function Mine(props: Props) {
         gender={props.user.userGender}
         userProfileImg={props.user.userProfileImage}
         mainKeyword={props.user.userMainKeyword}
+        isMine={props.isMine}
       />
     </div>
   );

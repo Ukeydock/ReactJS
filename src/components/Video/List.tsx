@@ -15,30 +15,58 @@ interface Props {
 export default function VideoList(props: Props) {
   const [video, setVideo] = useState<VideoData[]>([]);
   const [page, setPage] = useState<number>(1);
+  const [maxPage, setMaxPageNumber] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchVideo = async () => {
-      const video = await VideoApi.findViewVideoByUserId(
+      /**
+       * 페이지가 1이라면 새로운 비디오를 불러온다.
+       */
+      if (page === 1) {
+        const { video, maxPageNumber } = await VideoApi.findViewVideoByUserId(
+          props.user.userId,
+          props.filter,
+          1,
+          16
+        );
+        setMaxPageNumber(maxPageNumber);
+
+        setVideo(video);
+        return;
+      }
+      // setMaxPageNumber(null);
+      /**
+       * 페이지가 1이 아니라면 페이지를 바꿔서 useEffect를 실행한다.
+       */
+      setVideo([]);
+      setPage(1);
+    };
+    fetchVideo();
+  }, [props.filter]);
+
+  useEffect(() => {
+    const fetchVideo = async () => {
+      console.log("여기 실행");
+      const { video, maxPageNumber } = await VideoApi.findViewVideoByUserId(
         props.user.userId,
         props.filter,
         page,
         16
       );
-
-      setVideo(video);
+      setVideo((prev) => [...prev, ...video]);
+      setMaxPageNumber(maxPageNumber);
     };
-    fetchVideo();
-  }, [props.filter]);
+    if (page <= maxPage!) fetchVideo();
+  }, [page]);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.pageYOffset;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
-      console.log(scrollPosition, windowHeight, documentHeight);
+      // console.log(scrollPosition, windowHeight, documentHeight);
       if (scrollPosition + windowHeight >= documentHeight) {
-        setPage(page + 1);
-        console.log(page);
+        setPage((prev) => prev + 1);
       }
       // 스크롤 위치, 브라우저 창 높이, 문서 전체 높이에 대한 로직 수행
       // 여기서 필요에 따라 추가 콘텐츠를 요청할 수 있음

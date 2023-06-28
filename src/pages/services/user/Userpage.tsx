@@ -9,6 +9,7 @@ import Filter from "@root/components/Video/Filter/Filter";
 import VideoList from "@root/components/Video/List";
 import Mine from "@root/components/User/Filter/Mine";
 import Recent from "@root/components/User/Filter/Recent";
+import { AuthApi } from "@root/scripts/auth";
 
 export default function UserPage() {
   const [searchParams] = useSearchParams();
@@ -19,7 +20,9 @@ export default function UserPage() {
   const [activeButton, setActiveButton] = useState<
     `mine` | `recent` | `otherUser`
   >("mine");
+  const [isMine, setIsMine] = useState<boolean>(false);
 
+  console.log(isMine);
   const fetchActiveButton = (button: `mine` | `recent` | `otherUser`) => {
     setActiveButton(button);
   };
@@ -32,6 +35,12 @@ export default function UserPage() {
       setUser(userData);
     };
 
+    const fetchIsMine = () => {
+      const userId = AuthApi.findUserIdByAccessToken();
+
+      if (userId === parseInt(queryUserId!) || !queryUserId) setIsMine(true);
+    };
+    fetchIsMine();
     fetchUserData();
   }, []);
 
@@ -45,7 +54,7 @@ export default function UserPage() {
 
         {/* 나의 페이지 */}
         {activeButton === `mine` ? (
-          <Mine user={user} setUser={setUser} />
+          <Mine user={user} setUser={setUser} isMine={isMine} />
         ) : activeButton === `recent` ? (
           <Recent user={user} />
         ) : activeButton === `otherUser` ? (

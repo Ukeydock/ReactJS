@@ -22,7 +22,7 @@ export class VideoApi {
         limit : limit ?? 16
       }
     });
-    return videoData.data.videoData;
+    return {video :videoData.data.videoData , maxPageNumber : videoData.data.maxPageNumber};
   }
 
 }

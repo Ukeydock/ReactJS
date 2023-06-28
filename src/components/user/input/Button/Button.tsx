@@ -14,27 +14,26 @@ export default function Button(props: Props) {
   const handleMouseEnter = () => {
     setIsHover(true);
   };
-
+  console.log(props);
   const handleMouseLeave = () => {
     setIsHover(false);
   };
 
   return (
     <div
-      className={`button ${props.isSelected
+      className={`button ${
+        props.isSelected
           ? "selected"
           : props.isExistKeyword == true
-            ? "exist__keyword"
-            : ""
-        } ${isHover ? "hover" : ""}`}
+          ? "exist__keyword"
+          : ""
+      } ${isHover ? "hover" : ""}`}
       onClick={props.onSelect}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="button__border">
-        <p className="button__text">
-          {props.placeholder}
-        </p>
+        <p className="button__text">{props.placeholder}</p>
       </div>
     </div>
   );
