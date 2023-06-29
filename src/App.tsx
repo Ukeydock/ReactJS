@@ -15,6 +15,7 @@ const Layout = () => {
   return (
     <div
       style={{
+        margin: " auto",
         maxWidth: "1600px",
         backgroundColor: "black",
         marginTop: "80px",

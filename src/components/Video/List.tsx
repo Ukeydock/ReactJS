@@ -6,6 +6,7 @@ import { VideoApi, VideoViewApi } from "@root/scripts/video";
 import React, { useEffect, useState } from "react";
 import "@css/video/VideoList.css";
 import VideoModal from "../videoModal/videoModal";
+import { KeywordData } from "@root/Types/interface/keyword/keywordData.interface";
 
 interface Props {
   filter: FilterInterface;
@@ -16,6 +17,12 @@ export default function VideoList(props: Props) {
   const [video, setVideo] = useState<VideoData[]>([]);
   const [page, setPage] = useState<number>(1);
   const [maxPage, setMaxPageNumber] = useState<number | null>(null);
+  const [videoDbId, setVideoDbId] = useState<number | null>(null);
+  const [videoKeyword, setVideoKeyword] = useState<KeywordData>({
+    keyword: "",
+    keywordId: 0,
+    isExistKeyword: false,
+  });
 
   useEffect(() => {
     const fetchVideo = async () => {
@@ -46,7 +53,6 @@ export default function VideoList(props: Props) {
 
   useEffect(() => {
     const fetchVideo = async () => {
-      console.log("여기 실행");
       const { video, maxPageNumber } = await VideoApi.findViewVideoByUserId(
         props.user.userId,
         props.filter,
@@ -79,44 +85,65 @@ export default function VideoList(props: Props) {
     };
   }, []);
 
+  const fetchVideoDbId = (videoDbId: number) => {
+    setVideoDbId(videoDbId);
+  };
+
+  const fetchVideoKeyword = (keywordData: KeywordData) => {
+    setVideoKeyword(keywordData);
+  };
+
+  const handleVideoDbId = () => {
+    setVideoDbId(null);
+  };
+
   return (
     <div className="video__list__box">
-      {video?.map((video) => (
-        <div className="video__list__item__box" key={video.videoDBId}>
-          <div className="button__text ">
-            <p>{video.videoKeyword}</p>
-          </div>
-          <div>
-            <img
-              key={video.videoDBId}
-              // style={{ padding: "25px 0" }}
-              className={`row__poster`}
-              src={video.videoThumbnail}
-              alt="영화들 이미지"
-              onClick={async () => {
-                // fetchVideoModal(video.videoDBId);
-              }}
-            />
-          </div>
-          <div style={{ height: "130px" }}>
-            <p key={video.videoId}>
-              {Common.truncateString(video.videoTitle, 100)}
-            </p>
-          </div>
+      <div className="video__list__items__box">
+        {video?.map((video) => (
+          <div className="video__list__item__box" key={video.videoDBId}>
+            <div className="button__text ">
+              <p>{video.videoKeyword}</p>
+            </div>
+            <div>
+              <img
+                key={video.videoDBId}
+                // style={{ padding: "25px 0" }}
+                className={`row__poster`}
+                src={video.videoThumbnail}
+                alt="영화들 이미지"
+                onClick={async () => {
+                  fetchVideoDbId(video.videoDBId);
+                  fetchVideoKeyword({
+                    keyword: video.videoKeyword,
+                    keywordId: video.videoKeywordId,
+                    isExistKeyword: false,
+                  });
+                }}
+              />
+            </div>
+            <div style={{ height: "130px" }}>
+              <p key={video.videoId}>
+                {Common.truncateString(video.videoTitle, 100)}
+              </p>
+            </div>
 
-          <div>
-            <p>👀{video.videoViewCount}</p>
-            <p>{Common.convertDateToString(new Date(video.videoCreatedAt))}</p>
+            <div>
+              <p>👀 : {video.videoViewCount}</p>
+              <p>
+                {Common.convertDateToString(new Date(video.videoCreatedAt))}
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
-      {/* {videoDbId && (
-        <VideoModal
-          videoDbId={videoDbId}
-          keywordData={props.keywordData}
-          handleVideoDbId={handleVideoDbId}
-        />
-      )} */}
+        ))}
+        {videoDbId && (
+          <VideoModal
+            videoDbId={videoDbId}
+            keywordData={videoKeyword}
+            handleVideoDbId={handleVideoDbId}
+          />
+        )}
+      </div>
     </div>
   );
 }

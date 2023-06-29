@@ -36,6 +36,7 @@ export class Common {
             return "50대";
         }
         return "60대 이상";
+        
         }
 
     public static truncateString(str: string , length : number = 30): string {

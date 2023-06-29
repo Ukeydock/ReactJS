@@ -14,8 +14,22 @@ interface Props {
 
 export default function UserProfile(props: Props) {
   const [keyword, setKeyword] = useState<KeywordData[]>([]);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  const [keywordLimit, setkeywordLimit] = useState<number | null>(null);
 
   useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+
     const fetchKeyword = async () => {
       const keywordData = await KeywordApi.findAllByUserId(
         props.userData.userId
@@ -24,8 +38,22 @@ export default function UserProfile(props: Props) {
     };
 
     fetchKeyword();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
+  useEffect(() => {
+    // 키워드 배열 업데이트 로직
+    // 예시로 현재 창의 가로 크기에 따라 키워드 개수 제한
+    if (windowSize.width < 600) {
+      setkeywordLimit(2);
+    } else if (windowSize.width < 900) {
+      setkeywordLimit(10);
+    } else {
+      setkeywordLimit(null);
+    }
+  }, [windowSize]);
   const handleSelectButton = (keywordId: number, keyword: string) => {
     if (props.selectedButton.keyword === keyword) {
       props.setSelectedButton({ keyword: "", keywordId: 0 });
@@ -38,15 +66,15 @@ export default function UserProfile(props: Props) {
   const goToUserPage = (userId: number) => {
     window.location.href = `/api/user?userId=${userId}`;
   };
-
   return (
     <div
       style={{
-        flexBasis: "50%",
+        flexBasis: "100%",
 
         display: "flex",
         backgroundColor: "#222222",
         border: "2px solid #333333",
+        height: "300px",
       }}
     >
       <div>
@@ -61,24 +89,28 @@ export default function UserProfile(props: Props) {
         <p>{props.userData.userNickname}</p>
       </div>
       <div>
-        <p> {props.userData.userGender}</p>
-        <br />
-        <p> {props.userData.userAge}</p>
-        <br />
-        <p> {props.userData.userJob}</p>
-      </div>
-      <div className="keyword__box">
-        {keyword.map((keyword, idx) => {
-          if (idx > 3) return;
-          return (
-            <Keyword
-              key={keyword.keywordId}
-              {...keyword}
-              selectedButton={props.selectedButton.keyword}
-              handleSelectButton={handleSelectButton}
-            />
-          );
-        })}
+        <div style={{}}>
+          <p> {props.userData.userGender}</p>
+
+          <p> {props.userData.userAge}</p>
+
+          <p> {props.userData.userMainKeyword}</p>
+        </div>
+        <div className="keyword__box">
+          {keyword.map((keyword, idx) => {
+            if (keywordLimit && idx > keywordLimit) {
+              return;
+            }
+            return (
+              <Keyword
+                key={keyword.keywordId}
+                {...keyword}
+                selectedButton={props.selectedButton.keyword}
+                handleSelectButton={handleSelectButton}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

@@ -4,3 +4,10 @@
 
     left: auto
 }
+
+@media (max-width: 768px) {
+    .user__edit__container {
+            width: 80%;
+            
+        }
+}

@@ -10,6 +10,10 @@ import VideoList from "@root/components/Video/List";
 import Mine from "@root/components/User/Filter/Mine";
 import Recent from "@root/components/User/Filter/Recent";
 import { AuthApi } from "@root/scripts/auth";
+import { KeywordData } from "@root/Types/interface/keyword/keywordData.interface";
+import { KeywordApi } from "@root/scripts/keyword";
+import UserList from "@root/components/User/UserList";
+import SameKeywordUser from "@root/components/User/Filter/SameKeywordUser";
 
 export default function UserPage() {
   const [searchParams] = useSearchParams();
@@ -22,7 +26,8 @@ export default function UserPage() {
   >("mine");
   const [isMine, setIsMine] = useState<boolean>(false);
 
-  console.log(isMine);
+  const [keywordList, setKeywordList] = useState<KeywordData[]>([]);
+
   const fetchActiveButton = (button: `mine` | `recent` | `otherUser`) => {
     setActiveButton(button);
   };
@@ -40,6 +45,16 @@ export default function UserPage() {
 
       if (userId === parseInt(queryUserId!) || !queryUserId) setIsMine(true);
     };
+
+    const fetchKeywordList = async () => {
+      const keywordList = await KeywordApi.findAllByUserId(
+        queryUserId ? parseInt(queryUserId) : 0
+      );
+
+      setKeywordList(keywordList);
+    };
+
+    fetchKeywordList();
     fetchIsMine();
     fetchUserData();
   }, []);
@@ -54,13 +69,29 @@ export default function UserPage() {
 
         {/* 나의 페이지 */}
         {activeButton === `mine` ? (
-          <Mine user={user} setUser={setUser} isMine={isMine} />
+          <Mine
+            user={user}
+            setUser={setUser}
+            isMine={isMine}
+            keywordList={keywordList}
+          />
         ) : activeButton === `recent` ? (
-          <Recent user={user} />
+          <Recent user={user} keywordList={keywordList} />
         ) : activeButton === `otherUser` ? (
-          <div> 최근 본 영상</div>
+          <div>
+            <div style={{ color: "white" }}>
+              {keywordList.map((keyword) => {
+                return (
+                  <SameKeywordUser
+                    key={keyword.keyword}
+                    keywordData={keyword}
+                  />
+                );
+              })}
+            </div>
+          </div>
         ) : (
-          <div>다른 유저 페이지</div>
+          <div>잘못된 접근</div>
         )}
       </div>
     );

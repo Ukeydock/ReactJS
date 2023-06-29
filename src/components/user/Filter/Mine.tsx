@@ -4,11 +4,13 @@ import React, { useEffect, useState } from "react";
 import UserProfileEditModal from "../UserProfileEditModal";
 import UserStatus from "@root/components/Banner/UserStatus";
 import UserMainKeywordEditModal from "../UserMainKeywordEditModal";
+import { KeywordData } from "@root/Types/interface/keyword/keywordData.interface";
 
 interface Props {
   user: UserListData;
   setUser: (user: UserListData) => void;
   isMine: boolean;
+  keywordList: KeywordData[];
 }
 
 export default function Mine(props: Props) {
@@ -65,6 +67,7 @@ export default function Mine(props: Props) {
           setIsOpenModal={setisOpenMainKeyword}
           fetchUser={fetchUser}
           currentKeyword={props.user.userMainKeyword}
+          keywordList={props.keywordList}
         />
       )}
 

@@ -128,6 +128,9 @@ h2 {
   .row__poster {
     max-height: 100px;
   }
+  .row__title__font{
+    font-size: 13px;
+  }
   .row__posterLarge {
     max-height: 280px;
   }

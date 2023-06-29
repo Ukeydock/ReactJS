@@ -5,13 +5,14 @@
   background-color: black;
   position: fixed;
   top: 10%;
-  left: 5%;
+  /* left: 5%; */
   z-index: 1;
   transition: all 400ms ease-in-out 2s;
   animation: fadeIn 400ms;
   border-radius: 8px;
   color: white;
   overflow: auto;
+  overflow-x: hidden
 }
 
 
@@ -49,6 +50,8 @@
   cursor: pointer;
 }
 
+
+
 .filter__modal {
   width: 30%;
   height: 50%;
@@ -83,5 +86,27 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .video__modal {
+     width: 100%;
+    }
+  .filter__modal {
+    width: 60%;
+    
+  }
+  .video__title {
+    font-size: 1.3rem;
+
+  }
+  .close__button p {
+    margin: 10px;
+
+  }
+  .close__button {
+    width: 50px;
+    height: 50px;
   }
 }

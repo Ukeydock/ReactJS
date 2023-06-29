@@ -23,8 +23,8 @@ export default function KeywordBanner(props: Props) {
 
   if (props.keywordData.length > 0) {
     return (
-      <div>
-        <label>{props.keywordLabel}</label>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <label className="banner__keyword__subject">{props.keywordLabel}</label>
         <Swiper
           className="keyword__banner"
           direction="vertical"
@@ -38,10 +38,7 @@ export default function KeywordBanner(props: Props) {
               key={keyword.keywordId}
             >
               <div
-                style={{
-                  alignItems: "center",
-                  display: "flex",
-                }}
+                className="banner__keyword__items"
                 onClick={() => {
                   window.location.href = `/api/search?keyword=${keyword.keyword}`;
                 }}

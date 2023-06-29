@@ -16,18 +16,19 @@ interface Props {
     mainKeyword: string | null
   ) => void;
   currentKeyword: string;
+  keywordList: KeywordData[];
 }
 
 export default function UserMainKeywordEditModal(props: Props) {
-  const [keywordList, setKeywordList] = useState<KeywordData[]>([]);
+  // const [keywordList, setKeywordList] = useState<KeywordData[]>([]);
 
-  useEffect(() => {
-    const findAllKeywordByUserId = async () => {
-      const keywordList: KeywordData[] = await KeywordApi.findAllByUserId();
-      setKeywordList(keywordList);
-    };
-    findAllKeywordByUserId();
-  }, []);
+  // useEffect(() => {
+  //   const findAllKeywordByUserId = async () => {
+  //     const keywordList: KeywordData[] = await KeywordApi.findAllByUserId();
+  //     setKeywordList(keywordList);
+  //   };
+  //   findAllKeywordByUserId();
+  // }, []);
 
   const fetchIsOpenModal = () => {
     props.setIsOpenModal(false);
@@ -35,7 +36,9 @@ export default function UserMainKeywordEditModal(props: Props) {
 
   const fetchFilterKeyword = async (key: string) => {
     // console.log(keyword);
-    const keywordData = keywordList.find((keyword) => keyword.keyword === key);
+    const keywordData = props.keywordList.find(
+      (keyword) => keyword.keyword === key
+    );
     if (!keywordData) return;
 
     await KeywordUserApi.updateMainKeyword(keywordData.keywordId);
@@ -62,7 +65,7 @@ export default function UserMainKeywordEditModal(props: Props) {
       >
         <KeywordFilter
           buttonNmae={null}
-          filterList={keywordList.map((keyword) => ({
+          filterList={props.keywordList.map((keyword) => ({
             key: keyword.keyword,
             ko: keyword.keyword,
           }))}

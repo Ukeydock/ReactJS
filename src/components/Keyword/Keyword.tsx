@@ -12,7 +12,10 @@ interface props {
 
 export default function Keyword(props: props) {
   return (
-    <span className="input_box__name" style={{ marginTop: "1rem" }}>
+    <div
+      className="input_box__name"
+      style={{ display: "flex", marginTop: "1rem", height: "100%" }}
+    >
       <Button
         name={props.keyword}
         placeholder={props.keyword}
@@ -22,6 +25,6 @@ export default function Keyword(props: props) {
           props.handleSelectButton(props.keywordId, props.keyword)
         }
       />
-    </span>
+    </div>
   );
 }

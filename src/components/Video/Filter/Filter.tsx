@@ -15,10 +15,10 @@ interface Props {
   user: UserListData;
   filter: FilterInterface;
   setFilter: React.Dispatch<React.SetStateAction<FilterInterface>>;
+  keywordList: KeywordData[];
 }
 
 export default function Filter(props: Props) {
-  const [keywordList, setKeywordList] = useState<KeywordData[]>([]);
   const [modal, setModal] = useState<filterKeyValue>(null);
   const [filterList, setFilterList] = useState({
     keyword: [{ key: "", ko: "키워드를 추가해주세요!" }],
@@ -36,15 +36,10 @@ export default function Filter(props: Props) {
 
   useEffect(() => {
     const fetchKeywordList = async () => {
-      const keywordList: KeywordData[] = await KeywordApi.findAllByUserId(
-        props.user.userId
-      );
-
-      setKeywordList(keywordList);
-      if (keywordList.length === 0) return;
+      if (props.keywordList.length === 0) return;
       setFilterList((prev) => ({
         ...prev,
-        keyword: keywordList.map((keyword) => ({
+        keyword: props.keywordList.map((keyword) => ({
           key: keyword.keyword,
           ko: keyword.keyword,
         })),

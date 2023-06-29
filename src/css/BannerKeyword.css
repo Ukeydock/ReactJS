@@ -1,0 +1,43 @@
+.popular__keyword_list {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10%;
+}
+.popular__keyword_list>div {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.banner__keyword__items{
+    align-items: center;
+    display: flex;
+}
+
+.keyword__banner {
+    height: 100px;
+    display: flex;
+    cursor: pointer;
+    /* background-color: "red"; */
+}
+
+
+
+@media (max-width: 768px) {
+    .popular__keyword_list {
+        display: flex;
+        flex-direction: column;
+        padding: 0 10%;
+    }
+    
+    .banner__keyword__subject{
+        font-size: 1.2rem;
+
+    }
+
+    .banner__keyword__items {
+            align-items: center;
+            display: flex;
+            font-size: 1rem;
+        }
+
+}

@@ -113,7 +113,6 @@ export default function Row(props: props) {
                   src={video.videoThumbnail}
                   alt="영화들 이미지"
                   onClick={async () => {
-                    await VideoViewApi.create(video.videoDBId);
                     if (props.setVideoDbId) {
                       props.setVideoDbId(video.videoDBId);
                     } else {
@@ -121,7 +120,7 @@ export default function Row(props: props) {
                     }
                   }}
                 />
-                <p key={video.videoId}>
+                <p className="row__title__font" key={video.videoId}>
                   {Common.truncateString(video.videoTitle)}
                 </p>
               </SwiperSlide>

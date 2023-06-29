@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "@root/scripts/axios";
 import "@css/Banner.css";
+import "@css/BannerKeyword.css";
 import styled from "styled-components";
 import KeywordBanner from "./KeywordBanner";
 import { KeywordData } from "../../Types/interface/keyword/keywordData.interface";
@@ -19,7 +20,6 @@ export default function Banner(props: Props) {
   const [recommendKeyword, setRecommendKeyword] = useState<KeywordData[]>([]);
 
   const [user, setUser] = useState<UserListData>();
-  console.log(user);
   useEffect(() => {
     const fetchRecentKeyword = async () => {
       const recentKeywordData = await KeywordApi.findRecomendKeyword(
@@ -75,18 +75,15 @@ export default function Banner(props: Props) {
             keywordData={recentKeyword}
           />
 
-          <div>
-            <KeywordBanner
-              keywordLabel="유키독의 인기 키워드에요!"
-              keywordData={popularKeyword}
-            />
-          </div>
-          <div>
-            <KeywordBanner
-              keywordLabel={user.userNickname + "님을 위한 추천 키워드에요!"}
-              keywordData={popularKeyword}
-            />
-          </div>
+          <KeywordBanner
+            keywordLabel="유키독의 인기 키워드에요!"
+            keywordData={popularKeyword}
+          />
+
+          <KeywordBanner
+            keywordLabel={user.userNickname + "님을 위한 추천 키워드에요!"}
+            keywordData={recommendKeyword}
+          />
         </div>
 
         {/* <div className="banner__contents"></div> */}

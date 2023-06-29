@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "@css/video/Modal.css";
-import { VideoApi } from "../../scripts/video";
+import { VideoApi, VideoViewApi } from "../../scripts/video";
 import { videoDetailData } from "../../Types/interface/video/videoData.interface";
 import { UserApi } from "../../scripts/user";
 import UserList from "../User/UserList";
@@ -27,6 +27,7 @@ export default function VideoModal(props: Props) {
   useEffect(() => {
     const fetchDetailData = async () => {
       const videoDetailData = await VideoApi.findDetailByVideoDbId(videoDbId);
+      await VideoViewApi.create(videoDbId);
       setVideoDetailData(videoDetailData);
     };
 

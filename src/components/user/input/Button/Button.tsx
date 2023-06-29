@@ -14,7 +14,6 @@ export default function Button(props: Props) {
   const handleMouseEnter = () => {
     setIsHover(true);
   };
-  console.log(props);
   const handleMouseLeave = () => {
     setIsHover(false);
   };
