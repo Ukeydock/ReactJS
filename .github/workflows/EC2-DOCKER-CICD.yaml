@@ -70,21 +70,21 @@ jobs:
           script: |
             ${{secrets.AWS_DOCKER_LOGIN_CONSOLE}}
 
-            CONTAINER_ID=$(sudo docker ps -q -f "expose=4000")
+            CONTAINER_ID=$(docker ps -q -f "expose=4000")
             if [ ! -z "$CONTAINER_ID" ]
             then
-              sudo docker rm -f $CONTAINER_ID
+              docker rm -f $CONTAINER_ID
             fi
 
             IMAGE_ID=$(docker images -q)
             if [ ! -z "$IMAGE_ID" ]
             then
-              sudo docker rmi -f $IMAGE_ID
+              docker rmi -f $IMAGE_ID
             fi
-            sudo docker pull ${{secrets.ECR_REGISTRY}}/ukeydock:prod-react
+            docker pull ${{secrets.ECR_REGISTRY}}/ukeydock:prod-react
 
 
-            sudo docker run -d -it --restart unless-stopped -p 4000:4000 ${{secrets.ECR_REGISTRY}}/ukeydock:prod-react
+            docker run -d -it --restart unless-stopped -p 4000:4000 ${{secrets.ECR_REGISTRY}}/ukeydock:prod-react
 
       - name: Remove Github Actions IP From Security Group
         run: |
