@@ -1,25 +1,11 @@
-FROM node:18.16.1
-
+# 빌드 스테이지
+FROM node:18.16.1 AS node
 WORKDIR /app
 
-COPY package.json .
+RUN mkdir build
 
-RUN npm install
+COPY build build
 
-RUN mkdir src
-
-RUN mkdir public
-
-COPY src src
-
-COPY public public
-
-COPY tsconfig.json .
-
-COPY tsconfig.paths.json .
-
-COPY craco.config.js .
-
-COPY .env .
-
-CMD [ "npm", "run", "start" ]
+# 실행 스테이지
+FROM nginx:latest
+COPY --from=node /app/build /usr/share/nginx/html

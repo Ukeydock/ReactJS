@@ -1,9 +1,8 @@
-import axios from "@root/scripts/axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "@css/Row.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper";
-import { VideoApi, VideoViewApi } from "@root/scripts/video";
+import { VideoApi } from "@root/scripts/video";
 import spinner from "@root/assets/images/Spinner-1s-200px.gif";
 
 import "swiper/css";

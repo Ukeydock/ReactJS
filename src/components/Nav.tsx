@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "@css/Nav.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "@root/assets/images/UkeydockLogo.png";
 
 import { UserListData } from "../Types/interface/user/user";
 import { UserApi } from "../scripts/user";
-import Keydog from "./Image/Keydog";
-import { imageClassName } from "../Types/enum/image";
 
 export default function Nav() {
   const location = useLocation();
@@ -28,6 +26,7 @@ export default function Nav() {
     };
     const fetchUserData = async () => {
       const loginUserData = await UserApi.findOneByUserId();
+      console.log("nav");
       setUserData(loginUserData);
     };
 

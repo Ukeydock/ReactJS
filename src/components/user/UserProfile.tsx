@@ -54,6 +54,7 @@ export default function UserProfile(props: Props) {
       setkeywordLimit(null);
     }
   }, [windowSize]);
+
   const handleSelectButton = (keywordId: number, keyword: string) => {
     if (props.selectedButton.keyword === keyword) {
       props.setSelectedButton({ keyword: "", keywordId: 0 });

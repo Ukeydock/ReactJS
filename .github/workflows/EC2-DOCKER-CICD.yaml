@@ -27,65 +27,18 @@ jobs:
         run: |
 
           echo "${{secrets.PROD_ENV}}" >> .env
+      - name: Install Dependencies
+        run: npm install
 
-      - name: Delete ECR images
-        run: |
-          for repo in $(aws ecr describe-repositories --query 'repositories[].repositoryName' --output text); do
-            for tag in $(aws ecr list-images --repository-name $repo --query 'imageIds[].imageTag' --output text); do
-              aws ecr batch-delete-image --repository-name $repo --image-ids imageTag=$tag;
-            done;
-          done;
+      - name: Build React App
+        run: npm run build
 
-      - name: Build, tag, and push the image(node.js) to Amazon ECR
-        id: build-image-node
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-          IMAGE_TAG_NODE: ukeydock
-
-        run: |
-          ${{secrets.AWS_DOCKER_LOGIN_CONSOLE}}
-
-
-          docker build -f prod.dockerfile -t ${{secrets.ECR_REGISTRY}}/ukeydock:prod-react .
-          docker push ${{secrets.ECR_REGISTRY}}/ukeydock:prod-react
-
-      - name: Get Github Actions IP
-        id: ip
-        uses: haythem/public-ip@v1.2
-
-      - name: Add Github Actions IP to Security group
-        run: |
-          aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
-
-      - name: Deploy
-        uses: appleboy/ssh-action@master
-
+      - name: Upload to S3
+        uses: jakejarvis/s3-sync-action@master
         with:
-          host: ${{ secrets.REMOTE_IP }}
-          username: ${{ secrets.SSH_ID }}
-          key: ${{ secrets.SSH_KEY }}
-          port: 22
-
-          script: |
-            ${{secrets.AWS_DOCKER_LOGIN_CONSOLE}}
-
-            CONTAINER_ID=$(docker ps -q -f "expose=4000")
-            if [ ! -z "$CONTAINER_ID" ]
-            then
-              docker rm -f $CONTAINER_ID
-            fi
-
-            IMAGE_ID=$(docker images -q)
-            if [ ! -z "$IMAGE_ID" ]
-            then
-              docker rmi -f $IMAGE_ID
-            fi
-            docker pull ${{secrets.ECR_REGISTRY}}/ukeydock:prod-react
-
-
-            docker run -d -it --restart unless-stopped -p 4000:4000 ${{secrets.ECR_REGISTRY}}/ukeydock:prod-react
-
-      - name: Remove Github Actions IP From Security Group
-        run: |
-          aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ukeydock
+          AWS_REGION: ap-northeast-2
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

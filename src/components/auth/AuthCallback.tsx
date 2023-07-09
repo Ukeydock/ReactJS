@@ -25,7 +25,7 @@ const deleteCookies = (cookiesString: string) => {
 export default function AuthCallback() {
   const cookie = document.cookie;
   const cookieData = parseCookies(cookie);
-
+  console.log(cookieData);
   if (cookieData.accessToken) {
     localStorage.setItem(`appToken`, cookieData.accessToken);
 

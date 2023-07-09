@@ -1,6 +1,5 @@
 import { UserGender, UserListData } from "@root/Types/interface/user/user";
-import { UserApi } from "@root/scripts/user";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import UserProfileEditModal from "../UserProfileEditModal";
 import UserStatus from "@root/components/Banner/UserStatus";
 import UserMainKeywordEditModal from "../UserMainKeywordEditModal";

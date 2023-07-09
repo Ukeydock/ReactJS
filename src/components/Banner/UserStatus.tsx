@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "@css/BannerUser.css";
-import { KeywordUserApi } from "../../scripts/keywordUser";
 import { KeywordApi } from "../../scripts/keyword";
 import { UserApi } from "../../scripts/user";
 import { UserGender } from "../../Types/interface/user/user";

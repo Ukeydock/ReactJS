@@ -37,6 +37,7 @@ export default function UserPage() {
       const userData = await UserApi.findOneByUserId(
         queryUserId ? parseInt(queryUserId) : 0
       );
+      console.log("userpage");
       setUser(userData);
     };
 
