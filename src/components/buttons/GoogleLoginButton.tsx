@@ -17,17 +17,18 @@ export default function GoogleLoginButton() {
   };
 
   return (
-    <GoogleOAuthProvider clientId="632307209725-bg70ojf2bst34ipl0icmajlc5eai7ook.apps.googleusercontent.com">
-      <GoogleLogin
-        onSuccess={(googleResponse) => {
-          execLogin(googleResponse);
-        }}
-        onError={() => {
-          console.log("Login Failed");
-        }}
-      />
-      ;
-    </GoogleOAuthProvider>
+    <div className="login__button">
+      <GoogleOAuthProvider clientId="632307209725-bg70ojf2bst34ipl0icmajlc5eai7ook.apps.googleusercontent.com">
+        <GoogleLogin
+          onSuccess={(googleResponse) => {
+            execLogin(googleResponse);
+          }}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+        />
+      </GoogleOAuthProvider>
+    </div>
 
     // <div className="login__button">
     //   <img

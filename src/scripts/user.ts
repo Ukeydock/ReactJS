@@ -29,7 +29,7 @@ export class UserApi {
    * @description 유저 아이디를 통해 유저 정보를 가져온다. 유저 아이디가 없다면 로그인한 유저의 정보를 가져온다.
    *
    */
-  static findOneByUserId = async (userId?: number) => {
+  static findOneByUserId = async (userId?: number) : Promise<UserListData> => {
     const userData = await axios.get(`/user/@${userId ?? 0}`);
     return userData.data.data.userData;
   };
@@ -64,6 +64,9 @@ export class UserApi {
   };
 
   static updateUserProfile = async (formData: FormData) => {
-    await axios.post("/user/profile", formData);
+    const userProfileImageData = await axios.post("/user/profile", formData);
+    return userProfileImageData.data.data;
+
+
   }
 }

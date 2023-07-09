@@ -53,7 +53,6 @@ export default function Row(props: props) {
   const handleVideoDbId = () => {
     setVideoDbId(null);
   };
-
   if (!loading && video) {
     return (
       <section className="row" style={{ backgroundColor: "black" }}>
@@ -117,6 +116,11 @@ export default function Row(props: props) {
                     } else {
                       fetchVideoModal(video.videoDBId);
                     }
+                  }}
+                  onError={(e) => {
+                    console.log("에러남");
+                    e.currentTarget.src =
+                      "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg";
                   }}
                 />
                 <p className="row__title__font" key={video.videoId}>

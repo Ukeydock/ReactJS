@@ -71,13 +71,9 @@ export default function Mine(props: Props) {
       )}
 
       <UserStatus
-        userId={props.user.userId}
-        nickname={props.user?.userNickname}
-        age={props.user.userAge}
-        gender={props.user.userGender}
-        userProfileImg={props.user.userProfileImage}
-        mainKeyword={props.user.userMainKeyword}
+        user={props.user}
         isMine={props.isMine}
+        setUser={props.setUser}
       />
     </div>
   );

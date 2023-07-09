@@ -2,19 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import "@css/BannerUser.css";
 import { KeywordApi } from "../../scripts/keyword";
 import { UserApi } from "../../scripts/user";
-import { UserGender } from "../../Types/interface/user/user";
+import { UserGender, UserListData } from "../../Types/interface/user/user";
 
 interface Props {
   // 구독한 키워드의 수
-  userId: number;
-  userProfileImg?: string;
+
+  user: UserListData;
+
   subscribeKeywordCount?: number;
-  nickname: string;
-  age: string;
-  gender: UserGender;
-  mainKeyword: string;
 
   isMine: boolean;
+
+  setUser: (user: UserListData) => void;
 }
 
 /**
@@ -47,12 +46,11 @@ export default function UserStatus(props: Props) {
     if (inputFileRef.current && props.isMine) {
       inputFileRef.current.click();
     } else {
-      console.log("다른 사람의 프로필 들어가기");
-      window.open(props.userProfileImg, "_blank");
+      window.open(props.user.userProfileImage, "_blank");
     }
   };
 
-  const handleFileChange = (e: any) => {
+  const handleFileChange = async (e: any) => {
     const file = e.target.files[0];
 
     if (!file) return;
@@ -60,22 +58,15 @@ export default function UserStatus(props: Props) {
     const formData = new FormData();
     formData.append("profileImage", file);
 
-    UserApi.updateUserProfile(formData);
+    const userProfileImageData = await UserApi.updateUserProfile(formData);
+    props.setUser({
+      ...props.user,
+      userProfileImage: userProfileImageData.fileSavePath,
+    });
+
+    window.location.reload();
     // UserApi.updateProfileImage(formData)
   };
-
-  // const clickPropifle = async () => {
-
-  //     const userData = await UserApi.findOneByUserId(props.userId)
-  //     const loginUserData = await UserApi.findUser()
-  //     if (userData.userId === loginUserData.userId) {
-
-  //         console.log('프로필 사진 변경 로직')
-  //     }
-  //     if (userData.userId !== loginUserData.userId) {
-  //         console.log('다른 사람의 프로필 들어가기')
-  //     }
-  // }
 
   return (
     <div className="banner__user" style={{ color: "white" }}>
@@ -84,7 +75,7 @@ export default function UserStatus(props: Props) {
           <div className={"banner__user__profile"}>
             <img
               src={
-                props.userProfileImg ??
+                props.user.userProfileImage ??
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbP2PbB_Seuw0wrFxWqjZmr7erq1ncL2N6Q&usqp=CAU"
               }
               className={
@@ -111,7 +102,9 @@ export default function UserStatus(props: Props) {
             />
           </div>
           <div className="banner__user__status__box">
-            <div style={{ textAlign: "center" }}>{props.nickname} </div>
+            <div style={{ textAlign: "center" }}>
+              {props.user.userNickname}{" "}
+            </div>
             <div
               style={{
                 display: "flex",
@@ -124,18 +117,18 @@ export default function UserStatus(props: Props) {
                   <p>구독한 키워드 : {subscribeKeyword}</p>
                 </div>
                 <div className="banner__user_status__info">
-                  <p>{props.age}</p>
+                  <p>{props.user.userAge}</p>
                 </div>
               </div>
               <div className="banner__user__status">
                 <div className="banner__user_status__info">
-                  <p>대표 키워드 : {props.mainKeyword}</p>
+                  <p>대표 키워드 : {props.user.userMainKeyword}</p>
                 </div>
                 <div className="banner__user_status__info">
                   <p>
-                    {props.gender === "man"
+                    {props.user.userGender === "man"
                       ? "남자"
-                      : props.gender === "woman"
+                      : props.user.userGender === "woman"
                       ? "여자"
                       : "선택안함"}
                   </p>

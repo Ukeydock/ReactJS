@@ -3,8 +3,20 @@ import UkeydockLogo from "@root/components/Logo/UkeydockLogo";
 import { logoClassName } from "@root/Types/enum/keydog";
 import Keydog from "@root/components/Image/Keydog";
 import { imageClassName } from "@root/Types/enum/image";
+import { useEffect } from "react";
+import { UserApi } from "@root/scripts/user";
 
 export default function AuthMain() {
+  useEffect(() => {
+    const checkLogin = async () => {
+      const loginUserData = await UserApi.findOneByUserId();
+      if (loginUserData) {
+        window.location.replace(`/api/main`);
+      }
+    };
+    checkLogin();
+  }, []);
+
   return (
     <div
       style={{

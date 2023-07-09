@@ -45,7 +45,6 @@ export default function Banner(props: Props) {
 
     const fetchUserData = async () => {
       const userData = await UserApi.findOneByUserId();
-      console.log("banner");
       setUser(userData);
     };
 
@@ -54,19 +53,14 @@ export default function Banner(props: Props) {
     fetchPopularKeyword();
     fetchRecommendKeyword();
   }, []);
-
   if (user) {
     return (
       <header className="banner">
         <UserStatus
-          userId={user.userId}
-          userProfileImg={user.userProfileImage}
-          nickname={user.userNickname}
-          age={user.userAge}
-          gender={user.userGender}
+          user={user}
           subscribeKeywordCount={props.subscribeKeywordCount}
-          mainKeyword={user.userMainKeyword}
           isMine={true}
+          setUser={setUser}
         />
         <div className="popular__keyword_list">
           <KeywordBanner
