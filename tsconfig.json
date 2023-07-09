@@ -23,7 +23,7 @@
     "jsx": "react-jsx"
 
   },
-  "include": ["src", "src/routers/service.tsx"],
+  // "include": ["src", "src/routers/service.tsx"],
   "include": ["src", "craco.config.js"],
   "exclude": ["node_modules", "**/node_modules/*"]
 }

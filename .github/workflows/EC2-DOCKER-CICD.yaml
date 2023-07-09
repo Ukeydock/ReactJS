@@ -25,7 +25,7 @@ jobs:
           echo "${{secrets.PROD_ENV}}" >> .env
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build React App
         run: |
