@@ -31,6 +31,11 @@ export default function Mine(props: Props) {
     props.setUser(newUser);
   };
 
+  const execLogOut = () => {
+    localStorage.removeItem("appToken");
+    window.location.href = "/";
+  };
+
   return (
     <div>
       {props.isMine && (
@@ -48,6 +53,13 @@ export default function Mine(props: Props) {
             onClick={() => setisOpenMainKeyword(true)}
           >
             대표 키워드 수정
+          </button>
+          <button
+            className="button__border button__text"
+            style={{ backgroundColor: "#666666" }}
+            onClick={() => execLogOut()}
+          >
+            로그아웃
           </button>
         </div>
       )}

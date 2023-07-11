@@ -8,10 +8,10 @@ export default function Footer() {
         <FooterLinkContainer>
           <FooterLinkTitle>Ukeydock</FooterLinkTitle>
           <FooterLinkContent>
-            <FooterLink href="https://help.netflix.com/ko/node/412">
-              유키독 소개
+            <FooterLink href="https://github.com/Ukeydock">
+              유키독 소개(github)
             </FooterLink>
-            <FooterLink href="https://help.netflix.com/ko">문의</FooterLink>
+            <FooterLink href="https://help.netflix.com/ko">이력서</FooterLink>
             {/* <FooterLink href="https://help.netflix.com/ko/">
               미디어 센터
             </FooterLink>

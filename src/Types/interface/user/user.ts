@@ -1,4 +1,4 @@
-export type UserGender = `man` | `woman` | `none` | "";
+export type UserGender = `man` | `women` | `none` | "";
 
 export interface UserListData {
   userId: number;

@@ -73,7 +73,7 @@ export default function Birthday(props: props) {
         name="birthday"
         value={birthday}
         onChange={handleChange}
-        placeholder=""
+        placeholder="2000-01-01"
       />
       <p style={{ color: birthdayMessage.color }}>{birthdayMessage.message}</p>
     </div>

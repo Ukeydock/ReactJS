@@ -1,10 +1,13 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BACK_BASE_URL,
+  baseURL: process.env.NODE_ENV === "development" 
+    ? "http://localhost:3000"
+    : process.env.REACT_APP_BACK_BASE_URL,
   withCredentials: true,
 });
 
+console.log(process.env.NODE_ENV)
 instance.interceptors.request.use(
   (config: any) => {
     const token = localStorage.getItem("appToken");

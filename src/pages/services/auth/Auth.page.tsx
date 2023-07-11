@@ -9,10 +9,12 @@ import { UserApi } from "@root/scripts/user";
 export default function AuthMain() {
   useEffect(() => {
     const checkLogin = async () => {
-      const loginUserData = await UserApi.findOneByUserId();
-      if (loginUserData) {
-        window.location.replace(`/api/main`);
-      }
+      try {
+        const loginUserData = await UserApi.findOneByUserId();
+        if (loginUserData) {
+          window.location.replace(`/api/main`);
+        }
+      } catch (err) {}
     };
     checkLogin();
   }, []);

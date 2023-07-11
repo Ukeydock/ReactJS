@@ -1,4 +1,5 @@
-export type sort = "date" | "view" | "like" | "comment";
+export type sort = "date" | "view" 
+// | "like" | "comment";
 
 export type filterKeyValue = null | "keyword" | "order" | "sort"
 
@@ -37,15 +38,15 @@ export const sortObject  = {
     key: `view`,
     ko: `조회수`,
     en: `view`,
-  },
-  like: {
-    key: `like`,
-    ko: `좋아요`,
-    en: `like`,
-  },
-  comment: {
-    key: `comment`,
-    ko: `댓글`,
-    en: `comment`,
-  },
+  }
+  // like: {
+  //   key: `like`,
+  //   ko: `좋아요`,
+  //   en: `like`,
+  // },
+  // comment: {
+  //   key: `comment`,
+  //   ko: `댓글`,
+  //   en: `comment`,
+  // },
 };

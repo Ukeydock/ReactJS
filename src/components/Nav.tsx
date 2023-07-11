@@ -66,7 +66,7 @@ export default function Nav() {
         <input
           value={searchKeyword}
           onChange={handleChange}
-          className="nav__input"
+          className={"nav__input" + ` ${show && "nav__input_white"}`}
           type="text"
           placeholder="키워드를 입력해주세요"
         />

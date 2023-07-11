@@ -44,7 +44,7 @@ export default function Nickname(props: props) {
       return;
     }
 
-    const isValid = /^[a-z가-힣0-9]{2,16}$/;
+    const isValid = /^[A-Za-z가-힣0-9]{2,16}$/;
     if (isValid.test(nickname)) {
       props.handleInputChange({ key: "nickname", value: nickname });
       props.handleCanSubmit({ key: "nickname", value: true });
@@ -58,7 +58,7 @@ export default function Nickname(props: props) {
       props.handleCanSubmit({ key: "nickname", value: false });
 
       setRegNickname({
-        message: "사용 불가능한 닉네임이에요!",
+        message: "닉네임은 영소대문자, 한글, 숫자로 2~16자리로 입력해주세요!",
         textColor: textColor.red,
       });
     }
@@ -67,6 +67,7 @@ export default function Nickname(props: props) {
   return (
     <div>
       <p className="input_box__name">Nickname </p>
+
       <input
         className="input_box__middle"
         name="nickname"
@@ -74,7 +75,14 @@ export default function Nickname(props: props) {
         onChange={handleNicknameChange}
         type="text"
       />
-      <p style={{ color: regNickname.textColor, textAlign: "center" }}>
+
+      <p
+        style={{
+          color: regNickname.textColor,
+          textAlign: "center",
+          maxWidth: "208px",
+        }}
+      >
         {regNickname.message}
       </p>
     </div>

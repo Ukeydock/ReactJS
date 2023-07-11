@@ -27,6 +27,24 @@ export default function SearchPage() {
     const fetchSearchKeywordResult = async () => {
       if (searchTerm) {
         const keywordData = await KeywordApi.findAll(searchTerm);
+        for (let i = 0; i < keywordData.length; i++) {
+          if (keywordData[i].keyword === searchTerm) {
+            setSelectedButton({
+              keyword: searchTerm,
+              keywordId: keywordData[i].keywordId,
+              isExistKeyword: keywordData[i].isExistKeyword,
+            });
+          }
+        }
+      }
+    };
+    fetchSearchKeywordResult();
+  }, []);
+
+  useEffect(() => {
+    const fetchSearchKeywordResult = async () => {
+      if (searchTerm) {
+        const keywordData = await KeywordApi.findAll(searchTerm);
         setSearchKeywordResults(keywordData);
       }
       if (!searchTerm) {
@@ -48,13 +66,8 @@ export default function SearchPage() {
 
   if (searchKeywordResults?.length > 0) {
     const keywordComponent = (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <span className="keyword__list" style={{ marginTop: "20px" }}>
+      <div>
+        <div className="keyword__list" style={{ marginTop: "20px" }}>
           {searchKeywordResults.map((searchKeywordData) => {
             return (
               <Keyword
@@ -65,13 +78,13 @@ export default function SearchPage() {
               />
             );
           })}
-        </span>
+        </div>
       </div>
     );
     if (selectedButton.keyword) {
       return (
         <div>
-          {keywordComponent}
+          <div style={{}}>{keywordComponent}</div>
           <Row keywordData={selectedButton} />
         </div>
       );

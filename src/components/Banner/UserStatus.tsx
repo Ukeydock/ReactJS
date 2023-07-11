@@ -67,7 +67,7 @@ export default function UserStatus(props: Props) {
     window.location.reload();
     // UserApi.updateProfileImage(formData)
   };
-
+  console.log(props.user.userGender);
   return (
     <div className="banner__user" style={{ color: "white" }}>
       <div className="banner__user__info__box">
@@ -127,10 +127,10 @@ export default function UserStatus(props: Props) {
                 <div className="banner__user_status__info">
                   <p>
                     {props.user.userGender === "man"
-                      ? "남자"
-                      : props.user.userGender === "woman"
-                      ? "여자"
-                      : "선택안함"}
+                      ? "남자 🧑🏻"
+                      : props.user.userGender === "women"
+                      ? "여자 👩🏻"
+                      : "선택안함 😎"}
                   </p>
                 </div>
               </div>
