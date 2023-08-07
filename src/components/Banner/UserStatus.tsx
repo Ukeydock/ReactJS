@@ -67,7 +67,6 @@ export default function UserStatus(props: Props) {
     window.location.reload();
     // UserApi.updateProfileImage(formData)
   };
-  console.log(props.user.userGender);
   return (
     <div className="banner__user" style={{ color: "white" }}>
       <div className="banner__user__info__box">

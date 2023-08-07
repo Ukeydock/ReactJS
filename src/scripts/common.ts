@@ -40,11 +40,12 @@ export class Common {
         }
 
     public static truncateString(str: string , length : number = 30): string {
-
-        if (str && str.length > length) {
-            return str.slice(0, 27) + "...";
+        const parser = new DOMParser();
+        const decodedString = parser.parseFromString(`<!doctype html><body>${str}`, 'text/html').body.textContent;
+        if (decodedString && decodedString.length > length) {
+            return decodedString.slice(0, 27) + "...";
         }
-        return str;
+        return decodedString ?? "" ;
 }
 
     public static convertDateToString(date: Date): string {

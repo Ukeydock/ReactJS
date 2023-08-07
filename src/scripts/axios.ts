@@ -7,7 +7,6 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-console.log(process.env.NODE_ENV)
 instance.interceptors.request.use(
   (config: any) => {
     const token = localStorage.getItem("appToken");

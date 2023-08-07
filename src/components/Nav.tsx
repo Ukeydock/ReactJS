@@ -26,7 +26,6 @@ export default function Nav() {
     };
     const fetchUserData = async () => {
       const loginUserData = await UserApi.findOneByUserId();
-      console.log("nav");
       setUserData(loginUserData);
     };
 

@@ -11,13 +11,15 @@ export default function Footer() {
             <FooterLink href="https://github.com/Ukeydock">
               유키독 소개(github)
             </FooterLink>
-            <FooterLink href="https://help.netflix.com/ko">이력서</FooterLink>
-            {/* <FooterLink href="https://help.netflix.com/ko/">
-              미디어 센터
+            <FooterLink href="https://drive.google.com/file/d/13Co4AR8p3FbFGNuQ_9XTtjKSjBxUI5ic/view">
+              이력서
             </FooterLink>
-            <FooterLink href="https://help.netflix.com/ko/">
-              이용 약관
-            </FooterLink> */}
+            <FooterLink href="https://github.com/Ukeydock/ReactJS">
+              유키독 github(Frontend)
+            </FooterLink>
+            <FooterLink href="https://github.com/Ukeydock/NestJS">
+              유키독 github(Backend)
+            </FooterLink>
           </FooterLinkContent>
           <FooterDescContainer>
             <FooterDescRights>조권영 포트폴리오</FooterDescRights>

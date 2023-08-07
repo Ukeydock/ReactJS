@@ -14,7 +14,7 @@ export class AuthApi {
   }
 
   static findUserIdByAccessToken = () => {
-    const appToken = localStorage.getItem("appToken");
+  const appToken = localStorage.getItem("appToken");
     if (appToken) {
       const userId = JSON.parse(atob(appToken.split(".")[1])).userId;
       return userId;
